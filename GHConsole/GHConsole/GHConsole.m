@@ -25,11 +25,6 @@
 
 @end
 
-
-
-
-
-
 #pragma mark- GHConsole
 @interface GHConsole ()
 @property (nonatomic, strong)GHConsoleTextField *textField;
@@ -52,10 +47,11 @@
 - (GHConsoleTextField *)textField{
     if (!_textField) {
         _textField = [[GHConsoleTextField alloc]initWithFrame:CGRectMake(60, 0, k_WIDTH - 60, 90)];
-        _textField.backgroundColor = [UIColor colorWithRed:0.5 green:0.5 blue:0.5 alpha:0.3];
+        _textField.backgroundColor = [UIColor redColor];
         _textField.text = @"";
         _textField.editable = NO;
-        self.textField.textColor = [UIColor blackColor];
+        self.textField.textColor = [UIColor whiteColor];
+//        self.textField.font = [UIFont systemFontOfSize:15 weight:10];
         self.textField.selectable = NO;
         //添加右滑隐藏手势
         UISwipeGestureRecognizer *swipeGest = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeLogView:)];
@@ -71,7 +67,6 @@
 }
 
 - (NSTimer *)timer{
-    
     if (!_timer) {
         _timer = [NSTimer timerWithTimeInterval:0.5 target:self selector:@selector(textFieldStartRefresh) userInfo:nil repeats:YES];
     }
@@ -107,7 +102,7 @@
     
     _logSting = [NSMutableString stringWithFormat:@""];
     
-    NSArray * dataArray = [GHLogManager allLogAfterTime:0.0];
+    NSArray * dataArray = [GHLogManager allLogAfterTime:0.5];
     if (_currentLogCount == dataArray.count) {
         return;
     }
@@ -118,6 +113,8 @@
     _currentLogCount = dataArray.count;
     self.textField.text = _logSting;
     [self.textField scrollRectToVisible:CGRectMake(0, _textField.contentSize.height-15, _textField.contentSize.width, 10) animated:YES];
+    
+    
 }
 
 #pragma mark-  三种手势的添加
@@ -184,6 +181,7 @@
             self.textField.frame = CGRectMake(k_WIDTH - 30, 0, k_WIDTH, 90);
         } completion:^(BOOL finished) {
             self.isFullScreen = NO;
+            self.isShow = NO;
             [self.textField addGestureRecognizer:self.panOutGesture];
         }];    }
     

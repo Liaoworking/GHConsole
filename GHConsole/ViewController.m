@@ -34,16 +34,12 @@
             });
         });
     });
- 
-    
 }
 
 - (void)viewDidAppear:(BOOL)animated{
-    
     [[GHConsole sharedConsole]startPrintString];
-
-    
 }
+
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
