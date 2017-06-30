@@ -7,6 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
+#define DDLogInfo(frmt, ...)    LOG_OBJC_MAYBE(LOG_ASYNC_INFO,    LOG_LEVEL_DEF, LOG_FLAG_INFO,    0, frmt, ##__VA_ARGS__)
 
 @interface GHConsole : NSObject
 - (void)startPrintString;

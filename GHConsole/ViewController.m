@@ -20,14 +20,13 @@
 
 
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        NSLog(@"第1次打印");
+        GGLog(@"第1次打印");
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            NSLog(@"第2次打印");
+            GGLog(@"第2次打印");
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                NSLog(@"第3次打印");
-                
+                GGLog(@"第3次打印");
                 dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    NSLog(@"10s后打印");
+                    GGLog(@"10s后打印");
                 });
                 
                 
@@ -37,7 +36,6 @@
 }
 
 - (void)viewDidAppear:(BOOL)animated{
-    [[GHConsole sharedConsole]startPrintString];
 }
 
 

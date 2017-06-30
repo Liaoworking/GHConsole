@@ -7,8 +7,6 @@
 //
 
 #import "GHConsole.h"
-#import "GHLogManager.h"
-
 #define k_WIDTH [UIScreen mainScreen].bounds.size.width
 @interface GHConsoleTextField:UITextView
 @end
@@ -29,8 +27,7 @@
 @interface GHConsole ()
 @property (nonatomic, strong)GHConsoleTextField *textField;
 @property (nonatomic, strong)NSString *string;
-//定时器
-@property (nonatomic, strong)NSTimer *timer;
+
 //添加一个全局的logString 防止局部清除
 @property (nonatomic, copy)NSMutableString *logSting;
 //记录打印数，来确定打印更新
@@ -61,16 +58,11 @@
         
         [_textField addGestureRecognizer:swipeGest];
         [_textField addGestureRecognizer:tappGest];
-    [[UIApplication sharedApplication].keyWindow addSubview:_textField];
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            [[UIApplication sharedApplication].keyWindow addSubview:_textField];
+        });
     }
     return _textField;
-}
-
-- (NSTimer *)timer{
-    if (!_timer) {
-        _timer = [NSTimer timerWithTimeInterval:0.5 target:self selector:@selector(textFieldStartRefresh) userInfo:nil repeats:YES];
-    }
-    return _timer;
 }
 
 - (UIPanGestureRecognizer *)panOutGesture{
@@ -94,26 +86,43 @@
 - (void)startPrintString{
     self.isShow = YES;
     self.isFullScreen = NO;
-    [[NSRunLoop currentRunLoop]addTimer:self.timer forMode:NSRunLoopCommonModes];
     self.textField.text = @"控制台开始显示";
+    _logSting = [NSMutableString new];
+    [DDLog addLogger:[DDTTYLogger sharedInstance] withLevel:DDLogLevelVerbose]; // TTY = Xcode console
+    [[NSNotificationCenter defaultCenter]addObserver:self selector:@selector(receiveValue:) name:@"logMessage" object:nil];
+    GGLog(@"%@",@"333333");
+    
 }
 
-- (void)textFieldStartRefresh{
+
+
+/**
+ 核心方法：获取到打印的相关参数后去展示
+
+ @param notify 获得的通知
+ */
+- (void)receiveValue:(NSNotification *)notify{
     
-    _logSting = [NSMutableString stringWithFormat:@""];
+
     
-    NSArray * dataArray = [GHLogManager allLogAfterTime:0.5];
-    if (_currentLogCount == dataArray.count) {
-        return;
-    }
-    [dataArray enumerateObjectsUsingBlock:^(GHLogMessager  *_Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
-        //sender 是当前控制器
-        [_logSting appendString:[obj displayedTextForLogMessage]];
-    }];
-    _currentLogCount = dataArray.count;
-    self.textField.text = _logSting;
-    [self.textField scrollRectToVisible:CGRectMake(0, _textField.contentSize.height-15, _textField.contentSize.width, 10) animated:YES];
+    [_logSting appendString:[self formatterNotify:notify]];
+
+    dispatch_async(dispatch_get_main_queue(), ^{
+        self.textField.text = _logSting;
+        [self.textField scrollRectToVisible:CGRectMake(0, _textField.contentSize.height-15, _textField.contentSize.width, 10) animated:YES];
+    });
+ 
     
+}
+
+- (NSString *)formatterNotify:(NSNotification *)notify{
+    
+    DDLogMessage *message = notify.userInfo[@"message"];
+    ///时间格式化
+    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
+    formatter.dateFormat = @"HH:mm:ss.SSS";
+    
+    return  [NSString stringWithFormat:@"%@ %@ %@ line:%lu\n%@\n\n",[formatter stringFromDate:message.timestamp],message.fileName,message.function,(unsigned long)message.line,message.message];
     
 }
 
@@ -124,8 +133,6 @@
     if (self.isShow) {//如果是显示情况并且往右边滑动就隐藏
         if (swipeGesture.direction == UISwipeGestureRecognizerDirectionRight) {
             NSLog(@"往右边滑动了");
-            [self.timer invalidate];
-            self.timer = nil;
             [UIView animateWithDuration:0.5 animations:^{
                 self.textField.frame = CGRectMake(k_WIDTH - 30, 0, k_WIDTH, 90);
             } completion:^(BOOL finished) {
@@ -136,7 +143,6 @@
         }
     }else{//如果是隐藏情况往左边滑就是显示
         
-        [[NSRunLoop currentRunLoop]addTimer:self.timer forMode:NSRunLoopCommonModes];
         [UIView animateWithDuration:0.5 animations:^{
             self.textField.frame = CGRectMake(60, 0, k_WIDTH - 60, 90);
         } completion:^(BOOL finished) {
@@ -151,7 +157,6 @@
     if (self.isShow == YES) {//如果是显示情况什么都不管。
         return;
     }else{//如果是隐藏情况往左边滑就是显示
-        [[NSRunLoop currentRunLoop]addTimer:self.timer forMode:NSRunLoopCommonModes];
         [UIView animateWithDuration:0.5 animations:^{
             self.textField.frame = CGRectMake(60, 0, k_WIDTH - 60, 90);
         } completion:^(BOOL finished) {
@@ -164,10 +169,7 @@
 - (void)doubleTapTextView:(UITapGestureRecognizer *)tapGesture{
     
     if (self.isFullScreen == NO) {//变成全屏
-        //如果timer失效了就让它启动
-        if (!self.timer) {
-            [[NSRunLoop currentRunLoop]addTimer:self.timer forMode:NSRunLoopCommonModes];
-        }
+
         [UIView animateWithDuration:0.5 animations:^{
             self.textField.frame = [UIScreen mainScreen].bounds;
         } completion:^(BOOL finished) {
@@ -175,16 +177,19 @@
             [self.textField removeGestureRecognizer:self.panOutGesture];
         }];
     }else{//退出全屏
-        [self.timer invalidate];
-        self.timer = nil;
+
         [UIView animateWithDuration:0.5 animations:^{
             self.textField.frame = CGRectMake(k_WIDTH - 30, 0, k_WIDTH, 90);
         } completion:^(BOOL finished) {
             self.isFullScreen = NO;
             self.isShow = NO;
             [self.textField addGestureRecognizer:self.panOutGesture];
-        }];    }
-    
+        }];
+    }
+}
+
+-(void)dealloc{
+    [[NSNotificationCenter defaultCenter]removeObserver:self];
 }
 
 @end

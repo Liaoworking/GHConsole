@@ -1,0 +1,28 @@
+//
+//  PrefixHeader.pch
+//  GHConsole
+//
+//  Created by 廖光辉 on 29/06/2017.
+//  Copyright © 2017 廖光辉. All rights reserved.
+//
+
+#ifndef PrefixHeader_pch
+#define PrefixHeader_pch
+
+#ifdef __OBJC__
+#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
+#import "DDLog.h"
+#import "CocoaLumberjack.h"
+
+#endif
+
+#ifdef DEBUG
+static const int ddLogLevel = LOG_LEVEL_VERBOSE;
+#else
+static const int ddLogLevel = LOG_LEVEL_WARN;
+#endif
+
+
+
+#endif /* PrefixHeader_pch */
