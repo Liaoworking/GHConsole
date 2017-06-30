@@ -1,3 +1,15 @@
 # GHConsole
-a easy embeded Console in iPhone or iPad for iOS developer//  一个一行代码集成可在iPhone 或者iPad界面上显示的控制台
-当我写完才发现iOS10 和以上版本苹果关闭了对应api.  iOS9及其以下版本的测试机及内部调试的时候可以用我这个库。 谢谢。
+a easy embeded Console in iPhone or iPad for iOS developer//  一个一行代码集成可在iPhone 或者iPad界面上显示的控制台     
+
+//集成方法：
+1.在APPdelegate中导入头文件
+#import "GHConsole.h"
+2.在app启动的方法中去实现：[[GHConsole sharedConsole]startPrintString];
+
+- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
+[[GHConsole sharedConsole]startPrintString];
+
+return YES;
+}
+
+ok 大功告成！

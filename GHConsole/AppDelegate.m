@@ -17,7 +17,6 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     [[GHConsole sharedConsole]startPrintString];
-  
     
     return YES;
 }
