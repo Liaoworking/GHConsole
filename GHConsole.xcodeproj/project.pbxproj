@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9F12D8E61EE13F72007B9434 /* GHConsole.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F12D8E51EE13F72007B9434 /* GHConsole.m */; };
+		246280161FBDAD000053B06B /* GHConsole.m in Sources */ = {isa = PBXBuildFile; fileRef = 246280151FBDACFF0053B06B /* GHConsole.m */; };
 		9F46E6BC1EE1033D00087E4B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F46E6BB1EE1033D00087E4B /* main.m */; };
 		9F46E6BF1EE1033D00087E4B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F46E6BE1EE1033D00087E4B /* AppDelegate.m */; };
 		9F46E6C21EE1033D00087E4B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F46E6C11EE1033D00087E4B /* ViewController.m */; };
@@ -16,18 +16,6 @@
 		9F46E6CA1EE1033D00087E4B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9F46E6C81EE1033D00087E4B /* LaunchScreen.storyboard */; };
 		9F46E6D51EE1033D00087E4B /* GHConsoleTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F46E6D41EE1033D00087E4B /* GHConsoleTests.m */; };
 		9F46E6E01EE1033D00087E4B /* GHConsoleUITests.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F46E6DF1EE1033D00087E4B /* GHConsoleUITests.m */; };
-		9F46E6F11EE109FA00087E4B /* Foundation+Log.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F46E6F01EE109FA00087E4B /* Foundation+Log.m */; };
-		9F5679D21F04F6620074DFEC /* CLIColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F5679B61F04F6620074DFEC /* CLIColor.m */; };
-		9F5679D41F04F6620074DFEC /* DDAbstractDatabaseLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F5679BA1F04F6620074DFEC /* DDAbstractDatabaseLogger.m */; };
-		9F5679D51F04F6620074DFEC /* DDASLLogCapture.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F5679BC1F04F6620074DFEC /* DDASLLogCapture.m */; };
-		9F5679D61F04F6620074DFEC /* DDASLLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F5679BE1F04F6620074DFEC /* DDASLLogger.m */; };
-		9F5679D71F04F6620074DFEC /* DDFileLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F5679C11F04F6620074DFEC /* DDFileLogger.m */; };
-		9F5679D81F04F6620074DFEC /* DDLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F5679C51F04F6620074DFEC /* DDLog.m */; };
-		9F5679D91F04F6620074DFEC /* DDOSLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F5679C81F04F6620074DFEC /* DDOSLogger.m */; };
-		9F5679DA1F04F6620074DFEC /* DDTTYLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F5679CA1F04F6620074DFEC /* DDTTYLogger.m */; };
-		9F5679DB1F04F6620074DFEC /* DDContextFilterLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F5679CD1F04F6620074DFEC /* DDContextFilterLogFormatter.m */; };
-		9F5679DC1F04F6620074DFEC /* DDDispatchQueueLogFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F5679CF1F04F6620074DFEC /* DDDispatchQueueLogFormatter.m */; };
-		9F5679DD1F04F6620074DFEC /* DDMultiFormatter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F5679D11F04F6620074DFEC /* DDMultiFormatter.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,8 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		9F12D8E51EE13F72007B9434 /* GHConsole.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHConsole.m; sourceTree = "<group>"; };
-		9F12D8E71EE142D8007B9434 /* GHConsole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHConsole.h; sourceTree = "<group>"; };
+		246280151FBDACFF0053B06B /* GHConsole.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHConsole.m; sourceTree = "<group>"; };
+		246280171FBDAD0A0053B06B /* GHConsole.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GHConsole.h; sourceTree = "<group>"; };
 		9F46E6B71EE1033D00087E4B /* GHConsole.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GHConsole.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F46E6BB1EE1033D00087E4B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		9F46E6BD1EE1033D00087E4B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -66,34 +54,6 @@
 		9F46E6DB1EE1033D00087E4B /* GHConsoleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GHConsoleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F46E6DF1EE1033D00087E4B /* GHConsoleUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GHConsoleUITests.m; sourceTree = "<group>"; };
 		9F46E6E11EE1033D00087E4B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9F46E6F01EE109FA00087E4B /* Foundation+Log.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "Foundation+Log.m"; sourceTree = "<group>"; };
-		9F5679B51F04F6620074DFEC /* CLIColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CLIColor.h; sourceTree = "<group>"; };
-		9F5679B61F04F6620074DFEC /* CLIColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CLIColor.m; sourceTree = "<group>"; };
-		9F5679B71F04F6620074DFEC /* CocoaLumberjack.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CocoaLumberjack.h; sourceTree = "<group>"; };
-		9F5679B91F04F6620074DFEC /* DDAbstractDatabaseLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAbstractDatabaseLogger.h; sourceTree = "<group>"; };
-		9F5679BA1F04F6620074DFEC /* DDAbstractDatabaseLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDAbstractDatabaseLogger.m; sourceTree = "<group>"; };
-		9F5679BB1F04F6620074DFEC /* DDASLLogCapture.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDASLLogCapture.h; sourceTree = "<group>"; };
-		9F5679BC1F04F6620074DFEC /* DDASLLogCapture.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDASLLogCapture.m; sourceTree = "<group>"; };
-		9F5679BD1F04F6620074DFEC /* DDASLLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDASLLogger.h; sourceTree = "<group>"; };
-		9F5679BE1F04F6620074DFEC /* DDASLLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDASLLogger.m; sourceTree = "<group>"; };
-		9F5679BF1F04F6620074DFEC /* DDAssertMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDAssertMacros.h; sourceTree = "<group>"; };
-		9F5679C01F04F6620074DFEC /* DDFileLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDFileLogger.h; sourceTree = "<group>"; };
-		9F5679C11F04F6620074DFEC /* DDFileLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDFileLogger.m; sourceTree = "<group>"; };
-		9F5679C21F04F6620074DFEC /* DDLegacyMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLegacyMacros.h; sourceTree = "<group>"; };
-		9F5679C31F04F6620074DFEC /* DDLog+LOGV.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "DDLog+LOGV.h"; sourceTree = "<group>"; };
-		9F5679C41F04F6620074DFEC /* DDLog.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLog.h; sourceTree = "<group>"; };
-		9F5679C51F04F6620074DFEC /* DDLog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDLog.m; sourceTree = "<group>"; };
-		9F5679C61F04F6620074DFEC /* DDLogMacros.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDLogMacros.h; sourceTree = "<group>"; };
-		9F5679C71F04F6620074DFEC /* DDOSLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDOSLogger.h; sourceTree = "<group>"; };
-		9F5679C81F04F6620074DFEC /* DDOSLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDOSLogger.m; sourceTree = "<group>"; };
-		9F5679C91F04F6620074DFEC /* DDTTYLogger.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDTTYLogger.h; sourceTree = "<group>"; };
-		9F5679CA1F04F6620074DFEC /* DDTTYLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDTTYLogger.m; sourceTree = "<group>"; };
-		9F5679CC1F04F6620074DFEC /* DDContextFilterLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDContextFilterLogFormatter.h; sourceTree = "<group>"; };
-		9F5679CD1F04F6620074DFEC /* DDContextFilterLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDContextFilterLogFormatter.m; sourceTree = "<group>"; };
-		9F5679CE1F04F6620074DFEC /* DDDispatchQueueLogFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDDispatchQueueLogFormatter.h; sourceTree = "<group>"; };
-		9F5679CF1F04F6620074DFEC /* DDDispatchQueueLogFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDDispatchQueueLogFormatter.m; sourceTree = "<group>"; };
-		9F5679D01F04F6620074DFEC /* DDMultiFormatter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDMultiFormatter.h; sourceTree = "<group>"; };
-		9F5679D11F04F6620074DFEC /* DDMultiFormatter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDMultiFormatter.m; sourceTree = "<group>"; };
 		9F5679DE1F04F6CB0074DFEC /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -122,19 +82,11 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		24752ACE1EE3CE0C004C7442 /* SuperLog */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = SuperLog;
-			sourceTree = "<group>";
-		};
 		9F12D8E31EE13F72007B9434 /* GHConsole */ = {
 			isa = PBXGroup;
 			children = (
-				9F5679B31F04F6620074DFEC /* CocoaLumberjack */,
-				9F12D8E71EE142D8007B9434 /* GHConsole.h */,
-				9F12D8E51EE13F72007B9434 /* GHConsole.m */,
+				246280171FBDAD0A0053B06B /* GHConsole.h */,
+				246280151FBDACFF0053B06B /* GHConsole.m */,
 			);
 			path = GHConsole;
 			sourceTree = "<group>";
@@ -163,12 +115,10 @@
 		9F46E6B91EE1033D00087E4B /* GHConsole */ = {
 			isa = PBXGroup;
 			children = (
-				24752ACE1EE3CE0C004C7442 /* SuperLog */,
 				9F46E6BD1EE1033D00087E4B /* AppDelegate.h */,
 				9F46E6BE1EE1033D00087E4B /* AppDelegate.m */,
 				9F46E6C01EE1033D00087E4B /* ViewController.h */,
 				9F46E6C11EE1033D00087E4B /* ViewController.m */,
-				9F46E6F01EE109FA00087E4B /* Foundation+Log.m */,
 				9F12D8E31EE13F72007B9434 /* GHConsole */,
 				9F46E6C31EE1033D00087E4B /* Main.storyboard */,
 				9F46E6C61EE1033D00087E4B /* Assets.xcassets */,
@@ -203,56 +153,6 @@
 				9F46E6E11EE1033D00087E4B /* Info.plist */,
 			);
 			path = GHConsoleUITests;
-			sourceTree = "<group>";
-		};
-		9F5679B31F04F6620074DFEC /* CocoaLumberjack */ = {
-			isa = PBXGroup;
-			children = (
-				9F5679B41F04F6620074DFEC /* CLI */,
-				9F5679B71F04F6620074DFEC /* CocoaLumberjack.h */,
-				9F5679B91F04F6620074DFEC /* DDAbstractDatabaseLogger.h */,
-				9F5679BA1F04F6620074DFEC /* DDAbstractDatabaseLogger.m */,
-				9F5679BB1F04F6620074DFEC /* DDASLLogCapture.h */,
-				9F5679BC1F04F6620074DFEC /* DDASLLogCapture.m */,
-				9F5679BD1F04F6620074DFEC /* DDASLLogger.h */,
-				9F5679BE1F04F6620074DFEC /* DDASLLogger.m */,
-				9F5679BF1F04F6620074DFEC /* DDAssertMacros.h */,
-				9F5679C01F04F6620074DFEC /* DDFileLogger.h */,
-				9F5679C11F04F6620074DFEC /* DDFileLogger.m */,
-				9F5679C21F04F6620074DFEC /* DDLegacyMacros.h */,
-				9F5679C31F04F6620074DFEC /* DDLog+LOGV.h */,
-				9F5679C41F04F6620074DFEC /* DDLog.h */,
-				9F5679C51F04F6620074DFEC /* DDLog.m */,
-				9F5679C61F04F6620074DFEC /* DDLogMacros.h */,
-				9F5679C71F04F6620074DFEC /* DDOSLogger.h */,
-				9F5679C81F04F6620074DFEC /* DDOSLogger.m */,
-				9F5679C91F04F6620074DFEC /* DDTTYLogger.h */,
-				9F5679CA1F04F6620074DFEC /* DDTTYLogger.m */,
-				9F5679CB1F04F6620074DFEC /* Extensions */,
-			);
-			path = CocoaLumberjack;
-			sourceTree = "<group>";
-		};
-		9F5679B41F04F6620074DFEC /* CLI */ = {
-			isa = PBXGroup;
-			children = (
-				9F5679B51F04F6620074DFEC /* CLIColor.h */,
-				9F5679B61F04F6620074DFEC /* CLIColor.m */,
-			);
-			path = CLI;
-			sourceTree = "<group>";
-		};
-		9F5679CB1F04F6620074DFEC /* Extensions */ = {
-			isa = PBXGroup;
-			children = (
-				9F5679CC1F04F6620074DFEC /* DDContextFilterLogFormatter.h */,
-				9F5679CD1F04F6620074DFEC /* DDContextFilterLogFormatter.m */,
-				9F5679CE1F04F6620074DFEC /* DDDispatchQueueLogFormatter.h */,
-				9F5679CF1F04F6620074DFEC /* DDDispatchQueueLogFormatter.m */,
-				9F5679D01F04F6620074DFEC /* DDMultiFormatter.h */,
-				9F5679D11F04F6620074DFEC /* DDMultiFormatter.m */,
-			);
-			path = Extensions;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -389,20 +289,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9F5679DB1F04F6620074DFEC /* DDContextFilterLogFormatter.m in Sources */,
-				9F5679D81F04F6620074DFEC /* DDLog.m in Sources */,
-				9F5679DA1F04F6620074DFEC /* DDTTYLogger.m in Sources */,
-				9F5679D51F04F6620074DFEC /* DDASLLogCapture.m in Sources */,
-				9F5679DD1F04F6620074DFEC /* DDMultiFormatter.m in Sources */,
-				9F5679D71F04F6620074DFEC /* DDFileLogger.m in Sources */,
-				9F12D8E61EE13F72007B9434 /* GHConsole.m in Sources */,
-				9F46E6F11EE109FA00087E4B /* Foundation+Log.m in Sources */,
-				9F5679D91F04F6620074DFEC /* DDOSLogger.m in Sources */,
-				9F5679D41F04F6620074DFEC /* DDAbstractDatabaseLogger.m in Sources */,
-				9F5679DC1F04F6620074DFEC /* DDDispatchQueueLogFormatter.m in Sources */,
+				246280161FBDAD000053B06B /* GHConsole.m in Sources */,
 				9F46E6C21EE1033D00087E4B /* ViewController.m in Sources */,
-				9F5679D21F04F6620074DFEC /* CLIColor.m in Sources */,
-				9F5679D61F04F6620074DFEC /* DDASLLogger.m in Sources */,
 				9F46E6BF1EE1033D00087E4B /* AppDelegate.m in Sources */,
 				9F46E6BC1EE1033D00087E4B /* main.m in Sources */,
 			);

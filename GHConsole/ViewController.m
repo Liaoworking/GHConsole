@@ -8,7 +8,6 @@
 
 #import "ViewController.h"
 #import "GHConsole.h"
-#import "Foundation+Log.m"
 @interface ViewController ()
 
 @end

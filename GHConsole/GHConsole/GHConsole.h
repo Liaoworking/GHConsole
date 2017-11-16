@@ -7,22 +7,27 @@
 //
 
 #import <UIKit/UIKit.h>
-#define DDLogInfo(frmt, ...)    LOG_OBJC_MAYBE(LOG_ASYNC_INFO,    LOG_LEVEL_DEF, LOG_FLAG_INFO,    0, frmt, ##__VA_ARGS__)
-#ifdef __OBJC__
-#import <UIKit/UIKit.h>
-#import <Foundation/Foundation.h>
-#import "DDLog.h"
-#import "CocoaLumberjack.h"
 
-#endif
+#define GGLog(frmt, ...)    LOG_OBJC_MAYBE(frmt, ##__VA_ARGS__)
 
-#ifdef DEBUG
-static const int ddLogLevel = LOG_LEVEL_VERBOSE;
-#else
-static const int ddLogLevel = LOG_LEVEL_WARN;
-#endif
+#define LOG_OBJC_MAYBE(frmt, ...) \
+LOG_MAYBE(__PRETTY_FUNCTION__, frmt, ## __VA_ARGS__)
+
+#define LOG_MAYBE(fnct,frmt, ...)                       \
+do { if(1 & 1) LOG_MACRO(fnct, frmt, ##__VA_ARGS__); } while(0)
+
+
+#define LOG_MACRO(fnct, frmt, ...) \
+[[GHConsole sharedConsole] function : fnct                          \
+line : __LINE__                                           \
+format : (frmt), ## __VA_ARGS__]
+
+
 @interface GHConsole : NSObject
-- (void)startPrintString;
-+ (instancetype)sharedConsole;
+
+- (void)function:(const char *)function
+            line:(NSUInteger)line
+          format:(NSString *)format, ... NS_FORMAT_FUNCTION(3,4);
+- (void)startPrintLog;
 
 @end
