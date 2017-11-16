@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		246280161FBDAD000053B06B /* GHConsole.m in Sources */ = {isa = PBXBuildFile; fileRef = 246280151FBDACFF0053B06B /* GHConsole.m */; };
+		2462801B1FBDAF150053B06B /* GHConsole.m in Sources */ = {isa = PBXBuildFile; fileRef = 2462801A1FBDAF150053B06B /* GHConsole.m */; };
 		9F46E6BC1EE1033D00087E4B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F46E6BB1EE1033D00087E4B /* main.m */; };
 		9F46E6BF1EE1033D00087E4B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F46E6BE1EE1033D00087E4B /* AppDelegate.m */; };
 		9F46E6C21EE1033D00087E4B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F46E6C11EE1033D00087E4B /* ViewController.m */; };
@@ -36,8 +36,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		246280151FBDACFF0053B06B /* GHConsole.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHConsole.m; sourceTree = "<group>"; };
-		246280171FBDAD0A0053B06B /* GHConsole.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GHConsole.h; sourceTree = "<group>"; };
+		246280191FBDAF150053B06B /* GHConsole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHConsole.h; sourceTree = "<group>"; };
+		2462801A1FBDAF150053B06B /* GHConsole.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHConsole.m; sourceTree = "<group>"; };
 		9F46E6B71EE1033D00087E4B /* GHConsole.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GHConsole.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F46E6BB1EE1033D00087E4B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		9F46E6BD1EE1033D00087E4B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -54,7 +54,6 @@
 		9F46E6DB1EE1033D00087E4B /* GHConsoleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GHConsoleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F46E6DF1EE1033D00087E4B /* GHConsoleUITests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GHConsoleUITests.m; sourceTree = "<group>"; };
 		9F46E6E11EE1033D00087E4B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9F5679DE1F04F6CB0074DFEC /* PrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrefixHeader.pch; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -82,19 +81,19 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		9F12D8E31EE13F72007B9434 /* GHConsole */ = {
+		246280181FBDAF150053B06B /* GHConsole */ = {
 			isa = PBXGroup;
 			children = (
-				246280171FBDAD0A0053B06B /* GHConsole.h */,
-				246280151FBDACFF0053B06B /* GHConsole.m */,
+				246280191FBDAF150053B06B /* GHConsole.h */,
+				2462801A1FBDAF150053B06B /* GHConsole.m */,
 			);
-			path = GHConsole;
+			name = GHConsole;
+			path = ../../../Desktop/GHConsole/GHConsole/GHConsole;
 			sourceTree = "<group>";
 		};
 		9F46E6AE1EE1033D00087E4B = {
 			isa = PBXGroup;
 			children = (
-				9F5679DE1F04F6CB0074DFEC /* PrefixHeader.pch */,
 				9F46E6B91EE1033D00087E4B /* GHConsole */,
 				9F46E6D31EE1033D00087E4B /* GHConsoleTests */,
 				9F46E6DE1EE1033D00087E4B /* GHConsoleUITests */,
@@ -119,7 +118,7 @@
 				9F46E6BE1EE1033D00087E4B /* AppDelegate.m */,
 				9F46E6C01EE1033D00087E4B /* ViewController.h */,
 				9F46E6C11EE1033D00087E4B /* ViewController.m */,
-				9F12D8E31EE13F72007B9434 /* GHConsole */,
+				246280181FBDAF150053B06B /* GHConsole */,
 				9F46E6C31EE1033D00087E4B /* Main.storyboard */,
 				9F46E6C61EE1033D00087E4B /* Assets.xcassets */,
 				9F46E6C81EE1033D00087E4B /* LaunchScreen.storyboard */,
@@ -222,7 +221,7 @@
 				TargetAttributes = {
 					9F46E6B61EE1033D00087E4B = {
 						CreatedOnToolsVersion = 8.3.1;
-						DevelopmentTeam = 955WSR85EX;
+						DevelopmentTeam = 7C8N34NN9S;
 						ProvisioningStyle = Automatic;
 					};
 					9F46E6CF1EE1033D00087E4B = {
@@ -289,7 +288,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				246280161FBDAD000053B06B /* GHConsole.m in Sources */,
+				2462801B1FBDAF150053B06B /* GHConsole.m in Sources */,
 				9F46E6C21EE1033D00087E4B /* ViewController.m in Sources */,
 				9F46E6BF1EE1033D00087E4B /* AppDelegate.m in Sources */,
 				9F46E6BC1EE1033D00087E4B /* main.m in Sources */,
@@ -445,11 +444,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 955WSR85EX;
+				DEVELOPMENT_TEAM = 7C8N34NN9S;
 				INFOPLIST_FILE = GHConsole/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.xiaopu.1234;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yunlan.ghconsole;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -458,11 +457,11 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = 955WSR85EX;
+				DEVELOPMENT_TEAM = 7C8N34NN9S;
 				INFOPLIST_FILE = GHConsole/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.xiaopu.1234;
+				PRODUCT_BUNDLE_IDENTIFIER = com.yunlan.ghconsole;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
