@@ -30,16 +30,16 @@
 #pragma mark- GHConsole
 @interface GHConsole (){
     NSDate *_timestamp;
+    NSString *_timeString;
 }
 @property (nonatomic, strong)GHConsoleTextField *textField;
 @property (nonatomic, strong)NSString *string;
-
+///是否显示控制台
+@property (nonatomic, assign)BOOL isShowConsole;
 //添加一个全局的logString 防止局部清除
 @property (nonatomic, copy)NSMutableString *logSting;
 //记录打印数，来确定打印更新
 @property (nonatomic, assign)NSInteger currentLogCount;
-//是否显示
-@property (nonatomic, assign)BOOL isShow;
 //是否全屏
 @property (nonatomic, assign)BOOL isFullScreen;
 //添加的向外的手势，为了避免和查看log日志的手势冲突  isShow之后把手势移除
@@ -54,15 +54,17 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         _instance = [GHConsole new];
+        _instance.isShowConsole = NO;
         });
     return _instance;
 }
 
 //开始显示log日志 更新频率0.5s
 - (void)startPrintLog{
-    self.isShow = YES;
     self.isFullScreen = NO;
+    self.isShowConsole = YES;
     self.textField.text = @"控制台开始显示";
+    self.textField.scrollEnabled = NO;//一开始防止手势冲突，靠边显示时候滚动禁用
     _logSting = [NSMutableString new];
     
 }
@@ -79,146 +81,48 @@
         
         message = [[NSString alloc] initWithFormat:format arguments:args];
         //UI上去展示日志内容
-        [self printMSG:message andFunc:function];
-        va_end(args);
-        
-        va_start(args, format);
-        //  这里去处理message
-        [self printMSGAtSystemConsole:message andFuncName:function andLine:line];
-        va_end(args);
+        [self printMSG:message andFunc:function andLine:line];
     }
     
 }
 
-- (void)printMSGAtSystemConsole:(NSString *)message andFuncName:(const char *)function andLine:(NSInteger)line{
-    
-    //    if (USE_PTHREAD_THREADID_NP) {
-    //        __uint64_t tid;
-    //        pthread_threadid_np(NULL, &tid);
-    //        _threadID = [[NSString alloc] initWithFormat:@"%llu", tid];
-    //    } else {
-    //        _threadID = [[NSString alloc] initWithFormat:@"%x", pthread_mach_thread_np(pthread_self())];
-    //    }
-    
-    int len;
-    char ts[24] = "";
-    size_t tsLen = 0;
-    
-    _timestamp = [NSDate new];
-    NSTimeInterval epoch = [_timestamp timeIntervalSince1970];
-    struct tm tm;
-    time_t time = (time_t)epoch;
-    (void)localtime_r(&time, &tm);
-    int milliseconds = (int)((epoch - floor(epoch)) * 1000.0);
-    
-    len = snprintf(ts, 24, "%04d-%02d-%02d %02d:%02d:%02d:%03d", // yyyy-MM-dd HH:mm:ss:SSS
-                   tm.tm_year + 1900,
-                   tm.tm_mon + 1,
-                   tm.tm_mday,
-                   tm.tm_hour,
-                   tm.tm_min,
-                   tm.tm_sec, milliseconds);
-    
-    tsLen = (NSUInteger)MAX(MIN(24 - 1, len), 0);
-    
-    NSUInteger msgLen = [message lengthOfBytesUsingEncoding:NSUTF8StringEncoding];
-    
-    const BOOL useStack = msgLen < (1024 * 4);
-    
-    char msgStack[useStack ? (msgLen + 1) : 1]; // Analyzer doesn't like zero-size array, hence the 1
-    char *msg = useStack ? msgStack : (char *)malloc(msgLen + 1);
-    const char *resultCString = NULL;
-    if ([message canBeConvertedToEncoding:NSUTF8StringEncoding]) {
-        resultCString = [message cStringUsingEncoding:NSUTF8StringEncoding];
-    }
-    
-    const char *lineCString = NULL;
-    if ([@(line).stringValue canBeConvertedToEncoding:NSUTF8StringEncoding]) {
-        lineCString = [@(line).stringValue cStringUsingEncoding:NSUTF8StringEncoding];
-    }
-    
-    if (resultCString == NULL || lineCString == NULL) {
-        return;
-    }
-    
-    
-    struct iovec v[12];
-    
-    v[0].iov_base = "";
-    v[0].iov_len = 0;
-    
-    v[1].iov_base = "";
-    v[1].iov_len = 0;
-    
-    v[11].iov_base = "";
-    v[11].iov_len = 0;
-    
-    
-    v[2].iov_base = ts;
-    v[2].iov_len = tsLen;
-    
-    v[3].iov_base = " ";
-    v[3].iov_len = 1;
-    
-    v[4].iov_base = (char *)function;
-    v[4].iov_len = strlen(function);
-    
-    v[5].iov_base = "line";
-    v[5].iov_len = 5;
-    
-    v[6].iov_base = (char *)lineCString;
-    v[6].iov_len = strlen(lineCString);
-    
-    v[7].iov_base = " ";
-    v[7].iov_len = 1;
-    
-    v[8].iov_base = " ";
-    v[8].iov_len = 1;
-    
-    v[9].iov_base = (char *)resultCString;
-    v[9].iov_len = msgLen;
-    
-    v[10].iov_base = "\n";
-    v[10].iov_len = (msg[msgLen] == '\n') ? 0 : 1;
-    
-    writev(STDERR_FILENO, v, 12);
-    
-}
-
-
-
-- (void)printMSG:(NSString *)msg andFunc:(const char *)function{
+- (void)printMSG:(NSString *)msg andFunc:(const char *)function andLine:(NSInteger )Line{
     //方法名C转OC
     NSString *funcString = [NSString stringWithUTF8String:function];
     ///时间格式化
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
-    formatter.dateFormat = @"HH:mm:ss.SSS";
+    formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss.SSS";
     
     
     
-    msg = [NSString stringWithFormat:@"%@ %@   %@\n\n",[formatter stringFromDate:[NSDate new]],funcString,msg];
+    msg = [NSString stringWithFormat:@"%@ %@ line-%ld  %@\n\n",[formatter stringFromDate:[NSDate new]],funcString,(long)Line,msg];
     
-    [_logSting appendString:msg];
-
-    dispatch_async(dispatch_get_main_queue(), ^{
-        self.textField.text = _logSting;
-        [self.textField scrollRectToVisible:CGRectMake(0, _textField.contentSize.height-15, _textField.contentSize.width, 10) animated:YES];
-    });
- 
-    
+    const char *resultCString = NULL;
+    if ([msg canBeConvertedToEncoding:NSUTF8StringEncoding]) {
+        resultCString = [msg cStringUsingEncoding:NSUTF8StringEncoding];
+    }
+    //控制台打印
+    printf("%s", resultCString);
+    if (self.isShowConsole) {//如果显示的话手机上的控制台开始显示。
+        [_logSting appendString:msg];
+        
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.textField.text = _logSting;
+            [self.textField scrollRectToVisible:CGRectMake(0, _textField.contentSize.height-15, _textField.contentSize.width, 10) animated:YES];
+        });
+    }
 }
 
 #pragma mark-  三种手势的添加
 //右滑隐藏
 - (void)swipeLogView:(UISwipeGestureRecognizer *)swipeGesture{
     
-    if (self.isShow) {//如果是显示情况并且往右边滑动就隐藏
+    if (self.isFullScreen) {//如果是显示情况并且往右边滑动就隐藏
         if (swipeGesture.direction == UISwipeGestureRecognizerDirectionRight) {
             NSLog(@"往右边滑动了");
             [UIView animateWithDuration:0.5 animations:^{
                 self.textField.frame = CGRectMake(k_WIDTH - 30, 120, k_WIDTH, 90);
             } completion:^(BOOL finished) {
-                self.isShow = NO;
                 self.isFullScreen = NO;
                 [self.textField addGestureRecognizer:self.panOutGesture];
             }];
@@ -228,7 +132,6 @@
         [UIView animateWithDuration:0.5 animations:^{
             self.textField.frame = CGRectMake(60, 120, k_WIDTH - 60, 90);
         } completion:^(BOOL finished) {
-            self.isShow = YES;
             self.isFullScreen = NO;
         }];
     }
@@ -236,22 +139,20 @@
 //左拉显示
 - (void)panOutTextView:(UIPanGestureRecognizer *)panGesture{
     
-    if (self.isShow == YES) {//如果是显示情况什么都不管。
+    if (self.isFullScreen == YES) {//如果是显示情况什么都不管。
         return;
-    }else{//如果是隐藏情况往左边滑就是显示
-        [UIView animateWithDuration:0.5 animations:^{
-            self.textField.frame = CGRectMake(60, 120, k_WIDTH - 60, 90);
-        } completion:^(BOOL finished) {
-            self.isShow = YES;
-            [self.textField removeGestureRecognizer:self.panOutGesture];
-        }];
+    }else{//如果是隐藏情况上下移动就
+        CGPoint point = [panGesture locationInView:[UIApplication sharedApplication].keyWindow];
+        CGRect rect = self.textField.frame;
+        rect.origin.y = point.y - 30;
+        self.textField.frame = rect;
     }
 }
-
+//双击666
 - (void)doubleTapTextView:(UITapGestureRecognizer *)tapGesture{
     
     if (self.isFullScreen == NO) {//变成全屏
-
+        self.textField.scrollEnabled = YES;
         [UIView animateWithDuration:0.2 animations:^{
             self.textField.frame = [UIScreen mainScreen].bounds;
         } completion:^(BOOL finished) {
@@ -259,12 +160,11 @@
             [self.textField removeGestureRecognizer:self.panOutGesture];
         }];
     }else{//退出全屏
-
+        self.textField.scrollEnabled = NO;
         [UIView animateWithDuration:0.2 animations:^{
             self.textField.frame = CGRectMake(k_WIDTH - 30, 120, k_WIDTH, 90);
         } completion:^(BOOL finished) {
             self.isFullScreen = NO;
-            self.isShow = NO;
             [self.textField addGestureRecognizer:self.panOutGesture];
         }];
     }
@@ -278,7 +178,6 @@
         _textField.text = @"";
         _textField.editable = NO;
         self.textField.textColor = [UIColor whiteColor];
-        _textField.alpha = 0.5;
         //        self.textField.font = [UIFont systemFontOfSize:15 weight:10];
         self.textField.selectable = NO;
         //添加右滑隐藏手势
@@ -289,6 +188,7 @@
         
         [_textField addGestureRecognizer:swipeGest];
         [_textField addGestureRecognizer:tappGest];
+        [_textField addGestureRecognizer:self.panOutGesture];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             [[UIApplication sharedApplication].keyWindow addSubview:_textField];
         });
@@ -303,7 +203,5 @@
     return _panOutGesture;
 }
 
--(void)dealloc{
-}
 
 @end
