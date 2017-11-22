@@ -8,6 +8,7 @@
 
 #import "AppDelegate.h"
 #import "GHConsole.h"
+#import "ViewController.h"
 @interface AppDelegate ()
 
 @end
@@ -18,7 +19,9 @@
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
     [[GHConsole sharedConsole]startPrintLog];
-    
+    self.window.frame = [UIScreen mainScreen].bounds;
+    self.window.rootViewController = [[UINavigationController alloc]initWithRootViewController:[ViewController new]];
+    [self.window makeKeyAndVisible];
     return YES;
 }
 

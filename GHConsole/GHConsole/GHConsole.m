@@ -173,8 +173,8 @@
 #pragma mark- lazy
 - (GHConsoleTextField *)textField{
     if (!_textField) {
-        _textField = [[GHConsoleTextField alloc]initWithFrame:CGRectMake(k_WIDTH - 60, 120, k_WIDTH - 60, 90)];
-        _textField.backgroundColor = [UIColor redColor];
+        _textField = [[GHConsoleTextField alloc]initWithFrame:CGRectMake(k_WIDTH - 30, 120, k_WIDTH - 60, 90)];
+        _textField.backgroundColor = [UIColor blackColor];
         _textField.text = @"";
         _textField.editable = NO;
         self.textField.textColor = [UIColor whiteColor];
