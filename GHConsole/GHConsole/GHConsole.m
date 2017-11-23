@@ -190,7 +190,7 @@
         [_textField addGestureRecognizer:tappGest];
         [_textField addGestureRecognizer:self.panOutGesture];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [[UIApplication sharedApplication].keyWindow addSubview:_textField];
+         //   [[UIApplication sharedApplication].keyWindow addSubview:_textField];
         });
     }
     return _textField;
