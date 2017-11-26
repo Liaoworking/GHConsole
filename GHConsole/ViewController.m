@@ -19,23 +19,20 @@
     self.title = @"GHConsole";
     self.view.backgroundColor = [UIColor whiteColor];
     
+  
+    GGLog(@"This is some log I just want to show in GHConsole");
     
-    GGLog(@"这个是GGLog第一次打印%@",@"3333");
-
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        GGLog(@"第1次打印");
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            GGLog(@"第2次打印");
-            dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                GGLog(@"第3次打印");
-                dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-                    GGLog(@"10s后打印");
-                });
-                
-                
-            });
-        });
-    });
+    NSDictionary *parameterDict = @{@"paraKey1":@"paraValue1",
+                                    @"paraKey2":@"paraValue2",
+                                    @"paraKey3":@"paraValue2"
+                                    };
+    GGLog(@"%@",parameterDict);
+    
+    //if you  want to see the responsJSon from the API, you can just use GGLog( ) like NSLog( ) here.
+    GGLog(@"if you  want to see the responsJSon from the API, you can just use GGLog( ) like NSLog( ) here!");
+//    GGLog(@"%@",responsJSON);
+    
+  
 }
 
 - (void)viewDidAppear:(BOOL)animated{

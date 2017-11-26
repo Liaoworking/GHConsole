@@ -30,5 +30,5 @@ format : (frmt), ## __VA_ARGS__]
           format:(NSString *)format, ... NS_FORMAT_FUNCTION(3,4);
 + (instancetype)sharedConsole;
 - (void)startPrintLog;
-
+- (void)stopPringting;
 @end

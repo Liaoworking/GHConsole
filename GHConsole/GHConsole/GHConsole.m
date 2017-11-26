@@ -61,12 +61,18 @@
 
 //开始显示log日志 更新频率0.5s
 - (void)startPrintLog{
-    self.isFullScreen = NO;
-    self.isShowConsole = YES;
+    _isFullScreen = NO;
+    _isShowConsole = YES;
     self.textField.text = @"控制台开始显示";
     self.textField.scrollEnabled = NO;//一开始防止手势冲突，靠边显示时候滚动禁用
     _logSting = [NSMutableString new];
     
+}
+
+- (void)stopPringting{
+    if (self.textField.superview) {
+        [self.textField removeFromSuperview];
+    }
 }
 
 - (void)function:(const char *)function
@@ -117,13 +123,13 @@
 //右滑隐藏
 - (void)swipeLogView:(UISwipeGestureRecognizer *)swipeGesture{
     
-    if (self.isFullScreen) {//如果是显示情况并且往右边滑动就隐藏
+    if (_isFullScreen) {//如果是显示情况并且往右边滑动就隐藏
         if (swipeGesture.direction == UISwipeGestureRecognizerDirectionRight) {
             NSLog(@"往右边滑动了");
             [UIView animateWithDuration:0.5 animations:^{
                 self.textField.frame = CGRectMake(k_WIDTH - 30, 120, k_WIDTH, 90);
             } completion:^(BOOL finished) {
-                self.isFullScreen = NO;
+                _isFullScreen = NO;
                 [self.textField addGestureRecognizer:self.panOutGesture];
             }];
         }
@@ -132,14 +138,14 @@
         [UIView animateWithDuration:0.5 animations:^{
             self.textField.frame = CGRectMake(60, 120, k_WIDTH - 60, 90);
         } completion:^(BOOL finished) {
-            self.isFullScreen = NO;
+            _isFullScreen = NO;
         }];
     }
 }
 //左拉显示
 - (void)panOutTextView:(UIPanGestureRecognizer *)panGesture{
     
-    if (self.isFullScreen == YES) {//如果是显示情况什么都不管。
+    if (_isFullScreen == YES) {//如果是显示情况什么都不管。
         return;
     }else{//如果是隐藏情况上下移动就
         CGPoint point = [panGesture locationInView:[UIApplication sharedApplication].keyWindow];
@@ -151,12 +157,12 @@
 //双击666
 - (void)doubleTapTextView:(UITapGestureRecognizer *)tapGesture{
     
-    if (self.isFullScreen == NO) {//变成全屏
+    if (_isFullScreen == NO) {//变成全屏
         self.textField.scrollEnabled = YES;
         [UIView animateWithDuration:0.2 animations:^{
             self.textField.frame = [UIScreen mainScreen].bounds;
         } completion:^(BOOL finished) {
-            self.isFullScreen = YES;
+            _isFullScreen = YES;
             [self.textField removeGestureRecognizer:self.panOutGesture];
         }];
     }else{//退出全屏
@@ -164,7 +170,7 @@
         [UIView animateWithDuration:0.2 animations:^{
             self.textField.frame = CGRectMake(k_WIDTH - 30, 120, k_WIDTH, 90);
         } completion:^(BOOL finished) {
-            self.isFullScreen = NO;
+            _isFullScreen = NO;
             [self.textField addGestureRecognizer:self.panOutGesture];
         }];
     }
@@ -175,7 +181,7 @@
     if (!_textField) {
         _textField = [[GHConsoleTextField alloc]initWithFrame:CGRectMake(k_WIDTH - 30, 120, k_WIDTH - 60, 90)];
         _textField.backgroundColor = [UIColor blackColor];
-        _textField.text = @"";
+        _textField.text = @"\n\n";
         _textField.editable = NO;
         self.textField.textColor = [UIColor whiteColor];
         //        self.textField.font = [UIFont systemFontOfSize:15 weight:10];
@@ -190,7 +196,9 @@
         [_textField addGestureRecognizer:tappGest];
         [_textField addGestureRecognizer:self.panOutGesture];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-         //   [[UIApplication sharedApplication].keyWindow addSubview:_textField];
+            if (_isShowConsole) {
+                [[UIApplication sharedApplication].keyWindow addSubview:_textField];
+            }
         });
     }
     return _textField;

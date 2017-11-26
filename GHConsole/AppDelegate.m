@@ -18,7 +18,13 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
     
+    /*
+     you can use funcion  [[GHConsole sharedConsole]stopPringting] to disable GHConsole;
+     or you can annotate startPrintLog function.
+     */
+    
     [[GHConsole sharedConsole]startPrintLog];
+    
     self.window.frame = [UIScreen mainScreen].bounds;
     self.window.rootViewController = [[UINavigationController alloc]initWithRootViewController:[ViewController new]];
     [self.window makeKeyAndVisible];
