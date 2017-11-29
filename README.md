@@ -4,7 +4,7 @@
 中文版本请参看[这里](https://github.com/Liaoworking/GHConsole/wiki)
 
 
-A easily  and wireless way to get what you had logged and wanted to see in your App.
+An easy  and wireless way to get what you had logged and wanted to see in your App.
 
 [![Pod Version](https://img.shields.io/badge/Pod-1.4.0-6193DF.svg)](https://cocoapods.org/)
 ![Swift Version](https://img.shields.io/badge/xCode-9.1+-blue.svg)
