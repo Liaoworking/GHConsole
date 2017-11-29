@@ -1,4 +1,4 @@
-#  ![Alt text](http://img.njbanban.com/GHOwn/GHConsoleLogo.png)
+#  ![Alt text](http://img.njbanban.com/GHOwn/GHConsoleLogo2.png)
 
 # GHConsole
 
