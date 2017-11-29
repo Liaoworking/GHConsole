@@ -1,3 +1,5 @@
+#  ![Alt text](http://img.njbanban.com/GHOwn/GHConsoleLogo.png)
+
 # GHConsole
 
 
