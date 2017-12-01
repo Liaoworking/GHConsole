@@ -20,6 +20,8 @@
     self.view.backgroundColor = [UIColor whiteColor];
     
   
+    
+    
     GGLog(@"This is some log I just want to show in GHConsole");
     
     NSDictionary *parameterDict = @{@"paraKey1":@"paraValue1",

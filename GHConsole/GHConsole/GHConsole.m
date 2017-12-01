@@ -67,6 +67,7 @@
     self.textField.scrollEnabled = NO;//一开始防止手势冲突，靠边显示时候滚动禁用
     _logSting = [NSMutableString new];
     
+    
 }
 
 - (void)stopPringting{
@@ -195,7 +196,7 @@
         [_textField addGestureRecognizer:swipeGest];
         [_textField addGestureRecognizer:tappGest];
         [_textField addGestureRecognizer:self.panOutGesture];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             if (_isShowConsole) {
                 [[UIApplication sharedApplication].keyWindow addSubview:_textField];
             }
