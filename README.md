@@ -26,7 +26,7 @@ You can use [CocoaPods](http://cocoapods.org/) to install `GHConsole` by adding 
 ```ruby
 platform :ios, '7.0'
 use_frameworks!
-
+#you need to update your CocoaPods version if you can't find this pod.
 target 'your_project_name' do
 	pod 'GHConsole'
 end
@@ -84,7 +84,21 @@ if you don't want to see the GHConsole,you just need to annotate it.
 //[[GHConsole sharedConsole]startPrintLog];
 ```
 
-#### Configuration
+
+## Features
+GHConsole is at an inconspicuous position in your app.Multiple gesture was added in GHConsole. double tap to make it Full Screen and back.
+
+This framework only contains two files 
+
+**GHConsole.h**
+
+**GHConsole.m**
+
+Easy to use and uninstall.
+
+you can see **the number of the line** for your GGLog( ) and **function name** clearly in GHConslole.
+
+## Configuration
 
 Sorry. The GHConsole is too easy to have not any configuration. If you have any good idea or demand you can tell me at my git or email me.
 

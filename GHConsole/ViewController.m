@@ -21,7 +21,7 @@
     
   
     
-    
+    //像使用NSLog()一样使用GGLog()即可。
     GGLog(@"This is some log I just want to show in GHConsole");
     
     NSDictionary *parameterDict = @{@"paraKey1":@"paraValue1",

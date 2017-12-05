@@ -72,12 +72,13 @@
     self.consoleWindow.hidden = NO;
     self.consoleWindow.consoleRootViewController.text = @"控制台开始显示";
     _logSting = [NSMutableString new];
-    
+    GGLog(@"GHConsole start working");
     
 }
-
+//停止显示
 - (void)stopPringting{
     self.consoleWindow.hidden = YES;
+    _isShowConsole = NO;
 }
 
 - (void)function:(const char *)function
@@ -89,7 +90,6 @@
         va_start(args, format);
         
         NSString *message = nil;
-        
         message = [[NSString alloc] initWithFormat:format arguments:args];
         //UI上去展示日志内容
         [self printMSG:message andFunc:function andLine:line];
@@ -161,7 +161,7 @@
         }
     }
 }
-//双击666
+//双击操作
 - (void)doubleTapTextView:(UITapGestureRecognizer *)tapGesture{
     
     if (_isFullScreen == NO) {//变成全屏
@@ -180,6 +180,7 @@
         }];
     }
 }
+
 
 - (UIPanGestureRecognizer *)panOutGesture{
     if (!_panOutGesture) {
