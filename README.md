@@ -85,7 +85,7 @@ if you don't want to see the GHConsole,you just need to annotate it.
 ```
 
 
-##Features
+## Features
 GHConsole is at an inconspicuous position in your app.Multiple gesture was added in GHConsole. double tap to make it Full Screen and back.
 
 This framework only contains two files 
