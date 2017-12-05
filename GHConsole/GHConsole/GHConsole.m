@@ -16,14 +16,6 @@
 @end
 
 @implementation GHConsoleTextField
-- (instancetype)initWithFrame:(CGRect)frame
-{
-    self = [super initWithFrame:frame];
-    if (self) {
-        
-    }
-    return self;
-}
 
 @end
 
@@ -63,16 +55,17 @@
 - (void)startPrintLog{
     _isFullScreen = NO;
     _isShowConsole = YES;
-    self.textField.text = @"控制台开始显示";
     self.textField.scrollEnabled = NO;//一开始防止手势冲突，靠边显示时候滚动禁用
     _logSting = [NSMutableString new];
-    
+    GGLog(@"GHConsole start working");
     
 }
-
+//停止显示
 - (void)stopPringting{
+    _isShowConsole = NO;
     if (self.textField.superview) {
         [self.textField removeFromSuperview];
+        self.textField = nil;
     }
 }
 
@@ -85,7 +78,6 @@
         va_start(args, format);
         
         NSString *message = nil;
-        
         message = [[NSString alloc] initWithFormat:format arguments:args];
         //UI上去展示日志内容
         [self printMSG:message andFunc:function andLine:line];
@@ -155,7 +147,7 @@
         self.textField.frame = rect;
     }
 }
-//双击666
+//双击操作
 - (void)doubleTapTextView:(UITapGestureRecognizer *)tapGesture{
     
     if (_isFullScreen == NO) {//变成全屏
@@ -197,6 +189,7 @@
         [_textField addGestureRecognizer:tappGest];
         [_textField addGestureRecognizer:self.panOutGesture];
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2.5 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+            
             if (_isShowConsole) {
                 [[UIApplication sharedApplication].keyWindow addSubview:_textField];
             }
