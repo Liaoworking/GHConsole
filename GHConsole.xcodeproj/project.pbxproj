@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		2462801F1FBDB1DF0053B06B /* GHConsole.m in Sources */ = {isa = PBXBuildFile; fileRef = 2462801E1FBDB1DF0053B06B /* GHConsole.m */; };
+		36A90DE11FD689B70027F5D2 /* GHConsoleWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = 36A90DE01FD689B70027F5D2 /* GHConsoleWindow.m */; };
+		36A90DE41FD68AB10027F5D2 /* GHConsoleRootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 36A90DE31FD68AB10027F5D2 /* GHConsoleRootViewController.m */; };
 		9F46E6BC1EE1033D00087E4B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F46E6BB1EE1033D00087E4B /* main.m */; };
 		9F46E6BF1EE1033D00087E4B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F46E6BE1EE1033D00087E4B /* AppDelegate.m */; };
 		9F46E6C21EE1033D00087E4B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F46E6C11EE1033D00087E4B /* ViewController.m */; };
@@ -36,6 +38,10 @@
 /* Begin PBXFileReference section */
 		2462801D1FBDB1DF0053B06B /* GHConsole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHConsole.h; sourceTree = "<group>"; };
 		2462801E1FBDB1DF0053B06B /* GHConsole.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHConsole.m; sourceTree = "<group>"; };
+		36A90DDF1FD689B70027F5D2 /* GHConsoleWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GHConsoleWindow.h; sourceTree = "<group>"; };
+		36A90DE01FD689B70027F5D2 /* GHConsoleWindow.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GHConsoleWindow.m; sourceTree = "<group>"; };
+		36A90DE21FD68AB10027F5D2 /* GHConsoleRootViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GHConsoleRootViewController.h; sourceTree = "<group>"; };
+		36A90DE31FD68AB10027F5D2 /* GHConsoleRootViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GHConsoleRootViewController.m; sourceTree = "<group>"; };
 		9F46E6B71EE1033D00087E4B /* GHConsole.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GHConsole.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F46E6BB1EE1033D00087E4B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		9F46E6BD1EE1033D00087E4B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -80,6 +86,10 @@
 			children = (
 				2462801D1FBDB1DF0053B06B /* GHConsole.h */,
 				2462801E1FBDB1DF0053B06B /* GHConsole.m */,
+				36A90DDF1FD689B70027F5D2 /* GHConsoleWindow.h */,
+				36A90DE01FD689B70027F5D2 /* GHConsoleWindow.m */,
+				36A90DE21FD68AB10027F5D2 /* GHConsoleRootViewController.h */,
+				36A90DE31FD68AB10027F5D2 /* GHConsoleRootViewController.m */,
 			);
 			path = GHConsole;
 			sourceTree = "<group>";
@@ -261,6 +271,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				36A90DE11FD689B70027F5D2 /* GHConsoleWindow.m in Sources */,
+				36A90DE41FD68AB10027F5D2 /* GHConsoleRootViewController.m in Sources */,
 				2462801F1FBDB1DF0053B06B /* GHConsole.m in Sources */,
 				9F46E6C21EE1033D00087E4B /* ViewController.m in Sources */,
 				9F46E6BF1EE1033D00087E4B /* AppDelegate.m in Sources */,

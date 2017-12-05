@@ -8,7 +8,12 @@
 
 #import <UIKit/UIKit.h>
 
+//屏蔽release模式下的log输出
+#ifdef DEBUG
 #define GGLog(frmt, ...)    LOG_OBJC_MAYBE(frmt, ##__VA_ARGS__)
+#else
+#define GGLog(frmt, ...)
+#endif
 
 #define LOG_OBJC_MAYBE(frmt, ...) \
 LOG_MAYBE(__PRETTY_FUNCTION__, frmt, ## __VA_ARGS__)
