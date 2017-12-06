@@ -2,7 +2,7 @@
 //  GHConsole.m
 //  GHConsole
 //
-//  Created by 廖光辉 on 02/06/2017.
+//  Created by liaoWorking on 22/11/2017.
 //  Copyright © 2017 廖光辉. All rights reserved.
 //
 
@@ -72,12 +72,12 @@
 + (instancetype)consoleWindow;
 
 /**
- 最大化
+  to make the GHConsole full-screen.
  */
 - (void)maxmize;
 
 /**
- 最小化
+ to make the GHConsole at the right side in your app
  */
 - (void)minimize;
 
@@ -112,7 +112,6 @@
     self.rootViewController.view.frame = self.bounds;
 }
 @end
-
 
 
 
@@ -175,7 +174,6 @@
     _isFullScreen = NO;
     _isShowConsole = YES;
     self.consoleWindow.hidden = NO;
-    self.consoleWindow.consoleRootViewController.text = @"控制台开始显示";
     _logSting = [NSMutableString new];
     GGLog(@"GHConsole start working");
     
@@ -221,7 +219,6 @@
     printf("%s", resultCString);
     if (self.isShowConsole) {//如果显示的话手机上的控制台开始显示。
         [_logSting appendString:msg];
-        
         dispatch_async(dispatch_get_main_queue(), ^{
             self.consoleWindow.consoleRootViewController.text = _logSting;
         });
@@ -234,7 +231,6 @@
     
     if (_isFullScreen) {//如果是显示情况并且往右边滑动就隐藏
         if (swipeGesture.direction == UISwipeGestureRecognizerDirectionRight) {
-            NSLog(@"往右边滑动了");
             [UIView animateWithDuration:0.5 animations:^{
                 [self.consoleWindow minimize];
             } completion:^(BOOL finished) {
@@ -244,7 +240,7 @@
         }
     }
 }
-//左拉显示
+//scroll vertical.
 - (void)panOutTextView:(UIPanGestureRecognizer *)panGesture{
     
     if (_isFullScreen == YES) {//如果是显示情况什么都不管。

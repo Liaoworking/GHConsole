@@ -2,13 +2,13 @@
 //  GHConsole.h
 //  GHConsole
 //
-//  Created by 廖光辉 on 02/06/2017.
-//  Copyright © 2017 廖光辉. All rights reserved.
+//  Created by liaoWorking on 22/11/2017.
+//  Copyright © 2017 liaoWorking. All rights reserved.
 //
 
 #import <UIKit/UIKit.h>
 
-//屏蔽release模式下的log输出
+//release model with no log
 #ifdef DEBUG
 #define GGLog(frmt, ...)    LOG_OBJC_MAYBE(frmt, ##__VA_ARGS__)
 #else
@@ -30,10 +30,14 @@ format : (frmt), ## __VA_ARGS__]
 
 @interface GHConsole : NSObject
 
++ (instancetype)sharedConsole;
+
+- (void)startPrintLog;
+
+- (void)stopPringting;
+
 - (void)function:(const char *)function
             line:(NSUInteger)line
           format:(NSString *)format, ... NS_FORMAT_FUNCTION(3,4);
-+ (instancetype)sharedConsole;
-- (void)startPrintLog;
-- (void)stopPringting;
+
 @end
