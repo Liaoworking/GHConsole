@@ -100,7 +100,7 @@ you can see **the number of the line** for your GGLog( ) and **function name** c
 
 ## Configuration
 
-Sorry. The GHConsole is too easy to have not any configuration. If you have any good idea or demand you can tell me at my git or email me.
+Sorry. The GHConsole is too easy to have any configuration. If you have any good idea or demand you can tell me at my git or email.
 
 
 
@@ -108,9 +108,12 @@ Sorry. The GHConsole is too easy to have not any configuration. If you have any 
 - iOS 7.0+
 
 
+## Contributors List:
+zhoushaowen - [https://github.com/zhoushaowen](https://github.com/zhoushaowen)
 ## Meta
 
-Daniil Gavrilov - [Blog](https://liaoworking.com) - [FB](https://www.facebook.com/guanghui.liao.3)
+Liao Guanghui - [Blog](https://liaoworking.com) - [FB](https://www.facebook.com/guanghui.liao.3)
+
 
 GHConsole is available under the MIT license. See the LICENSE file for more info.
 

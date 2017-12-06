@@ -11,9 +11,114 @@
 #import <unistd.h>
 #import <sys/uio.h>
 #import <pthread/pthread.h>
-#import "GHConsoleWindow.h"
-#import "GHConsoleRootViewController.h"
 #define USE_PTHREAD_THREADID_NP                (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iOS_8_0)
+
+
+
+
+#pragma mark- GHConsoleRootViewController
+@interface GHConsoleRootViewController : UIViewController
+{
+    UITextView *_textView;
+}
+@property (nonatomic,copy) NSString *text;
+@property (nonatomic) BOOL scrollEnable;
+@end
+
+@implementation GHConsoleRootViewController
+
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    _textView = [[UITextView alloc] initWithFrame:self.view.bounds];
+    _textView.backgroundColor = [UIColor blackColor];
+    _textView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    _textView.font = [UIFont boldSystemFontOfSize:13];
+    _textView.textColor = [UIColor whiteColor];
+    _textView.editable = NO;
+    _textView.scrollEnabled = NO;
+    _textView.selectable = NO;
+    _textView.alwaysBounceVertical = YES;
+#ifdef __IPHONE_11_0
+    if([_textView respondsToSelector:@selector(setContentInsetAdjustmentBehavior:)]){
+    #pragma clang diagnostic push
+    #pragma clang diagnostic ignored "-Wunguarded-availability"
+        _textView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
+    #pragma clang diagnostic pop
+        
+    }
+#endif
+    [self.view addSubview:_textView];
+    _textView.text = self.text;
+    [_textView scrollRectToVisible:CGRectMake(0, _textView.contentSize.height-15, _textView.contentSize.width, 10) animated:YES];
+}
+
+- (void)setText:(NSString *)text {
+    _text = [text copy];
+    if(_textView){
+        _textView.text = text;
+        [_textView scrollRectToVisible:CGRectMake(0, _textView.contentSize.height-15, _textView.contentSize.width, 10) animated:YES];
+    }
+}
+
+- (void)setScrollEnable:(BOOL)scrollEnable {
+    _textView.scrollEnabled = scrollEnable;
+}
+@end
+
+
+#pragma mark- GHConsoleWindow
+@interface GHConsoleWindow : UIWindow
+
++ (instancetype)consoleWindow;
+
+/**
+ 最大化
+ */
+- (void)maxmize;
+
+/**
+ 最小化
+ */
+- (void)minimize;
+
+@property (nonatomic,strong) GHConsoleRootViewController *consoleRootViewController;
+@end
+
+
+@implementation GHConsoleWindow
++ (instancetype)consoleWindow {
+    GHConsoleWindow *window = [[self alloc] init];
+    window.windowLevel = UIWindowLevelStatusBar + 100;
+    window.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - 30, 120, [UIScreen mainScreen].bounds.size.width - 60, 90);
+    return window;
+}
+
+- (GHConsoleRootViewController *)consoleRootViewController {
+    return (GHConsoleRootViewController *)self.rootViewController;
+}
+
+- (void)maxmize {
+    self.frame = [UIScreen mainScreen].bounds;
+    self.consoleRootViewController.scrollEnable = YES;
+}
+
+- (void)minimize {
+    self.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - 30, 120, [UIScreen mainScreen].bounds.size.width - 60, 90);
+    self.consoleRootViewController.scrollEnable = NO;
+}
+
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    self.rootViewController.view.frame = self.bounds;
+}
+@end
+
+
+
+
+
+
+
 
 #pragma mark- GHConsole
 @interface GHConsole (){
