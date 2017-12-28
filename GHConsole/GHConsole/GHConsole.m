@@ -12,10 +12,6 @@
 #import <sys/uio.h>
 #import <pthread/pthread.h>
 #define USE_PTHREAD_THREADID_NP                (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iOS_8_0)
-
-
-
-
 #pragma mark- GHConsoleRootViewController
 @interface GHConsoleRootViewController : UIViewController
 {
@@ -115,10 +111,6 @@
 
 
 
-
-
-
-
 #pragma mark- GHConsole
 @interface GHConsole (){
     NSDate *_timestamp;
@@ -197,7 +189,6 @@
         //UI上去展示日志内容
         [self printMSG:message andFunc:function andLine:line];
     }
-    
 }
 
 - (void)printMSG:(NSString *)msg andFunc:(const char *)function andLine:(NSInteger )Line{
@@ -206,8 +197,6 @@
     ///时间格式化
     NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
     formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss.SSS";
-    
-    
     
     msg = [NSString stringWithFormat:@"%@ %@ line-%ld  %@\n\n",[formatter stringFromDate:[NSDate new]],funcString,(long)Line,msg];
     
@@ -289,6 +278,4 @@
     }
     return _panOutGesture;
 }
-
-
 @end
