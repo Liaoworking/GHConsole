@@ -33,8 +33,10 @@
     //if you  want to see the responsJSon from the API, you can just use GGLog( ) like NSLog( ) here.
     GGLog(@"if you  want to see the responsJSon from the API, you can just use GGLog( ) like NSLog( ) here!");
 //    GGLog(@"%@",responsJSON);
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        GGLog(@"In my life best day,any day best day");
+    });
     
-  
 }
 
 - (void)viewDidAppear:(BOOL)animated{

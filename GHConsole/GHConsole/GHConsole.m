@@ -13,18 +13,28 @@
 #import <pthread/pthread.h>
 #define USE_PTHREAD_THREADID_NP                (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iOS_8_0)
 #pragma mark- GHConsoleRootViewController
+typedef void (^clearTextBlock)(void);
 @interface GHConsoleRootViewController : UIViewController
 {
     UITextView *_textView;
+    UIButton *_clearBtn;
 }
 @property (nonatomic,copy) NSString *text;
 @property (nonatomic) BOOL scrollEnable;
+@property (nonatomic, copy) clearTextBlock clearLogText;
+
 @end
 
 @implementation GHConsoleRootViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    [self configTextField];
+    [self configClearBtn];
+}
+
+- (void)configTextField{
+    
     _textView = [[UITextView alloc] initWithFrame:self.view.bounds];
     _textView.backgroundColor = [UIColor blackColor];
     _textView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
@@ -36,16 +46,35 @@
     _textView.alwaysBounceVertical = YES;
 #ifdef __IPHONE_11_0
     if([_textView respondsToSelector:@selector(setContentInsetAdjustmentBehavior:)]){
-    #pragma clang diagnostic push
-    #pragma clang diagnostic ignored "-Wunguarded-availability"
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wunguarded-availability"
         _textView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-    #pragma clang diagnostic pop
+#pragma clang diagnostic pop
         
     }
 #endif
     [self.view addSubview:_textView];
     _textView.text = self.text;
     [_textView scrollRectToVisible:CGRectMake(0, _textView.contentSize.height-15, _textView.contentSize.width, 10) animated:YES];
+    
+}
+
+- (void)configClearBtn{
+    
+    _clearBtn = [[UIButton alloc]initWithFrame:CGRectMake(self.view.bounds.size.width - 100, 20, 80, 30)];
+    [_clearBtn addTarget:self action:@selector(clearText) forControlEvents:UIControlEventTouchUpInside];
+    [_clearBtn setTitle:@"clear" forState:UIControlStateNormal];
+    [_clearBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    _clearBtn.layer.borderWidth = 2;
+    _clearBtn.layer.borderColor = [[UIColor whiteColor] CGColor];
+    [self.view addSubview:_clearBtn];
+    
+}
+
+- (void)clearText{
+    if (self.clearLogText) {
+        self.clearLogText();
+    }
 }
 
 - (void)setText:(NSString *)text {
@@ -148,12 +177,17 @@
     if(!_consoleWindow){
         _consoleWindow = [GHConsoleWindow consoleWindow];
         _consoleWindow.rootViewController = [GHConsoleRootViewController new];
+        __weak __typeof__(self) weakSelf = self;
+        _consoleWindow.consoleRootViewController.clearLogText = ^{
+            __strong __typeof(weakSelf)strongSelf = weakSelf;
+            [strongSelf clearAllText];
+        };
         //添加右滑隐藏手势
         UISwipeGestureRecognizer *swipeGest = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeLogView:)];
         //添加双击全屏或者隐藏的手势
         UITapGestureRecognizer *tappGest = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(doubleTapTextView:)];
         tappGest.numberOfTapsRequired = 2;
-
+        
         [_consoleWindow.rootViewController.view addGestureRecognizer:swipeGest];
         [_consoleWindow.rootViewController.view addGestureRecognizer:tappGest];
         [_consoleWindow.rootViewController.view addGestureRecognizer:self.panOutGesture];
@@ -212,6 +246,11 @@
             self.consoleWindow.consoleRootViewController.text = _logSting;
         });
     }
+}
+
+- (void)clearAllText{
+    _logSting = [NSMutableString stringWithString:@""];
+    self.consoleWindow.consoleRootViewController.text = _logSting;
 }
 
 #pragma mark-  三种手势的添加
