@@ -98,6 +98,8 @@ Easy to use and uninstall.
 
 you can see **the number of the line** for your GGLog( ) and **function name** clearly in GHConslole.
 
+A **clear button** on GHConsole can remove some useless log.
+
 ## Configuration
 
 Sorry. The GHConsole is too easy to have any configuration. If you have any good idea or demand you can tell me at my git or email.
