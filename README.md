@@ -112,6 +112,8 @@ Sorry. The GHConsole is too easy to have any configuration. If you have any good
 
 ## Contributors List:
 zhoushaowen - [https://github.com/zhoushaowen](https://github.com/zhoushaowen)
+
+Kane - [https://github.com/KaneLanF](https://github.com/KaneLanF)
 ## Meta
 
 Liao Guanghui - [Blog](https://liaoworking.com) - [FB](https://www.facebook.com/guanghui.liao.3)
