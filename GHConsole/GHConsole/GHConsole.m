@@ -39,6 +39,7 @@ typedef void (^clearTextBlock)(void);
     _textView.backgroundColor = [UIColor blackColor];
     _textView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     _textView.font = [UIFont boldSystemFontOfSize:13];
+
     _textView.textColor = [UIColor whiteColor];
     _textView.editable = NO;
     _textView.scrollEnabled = NO;
@@ -158,6 +159,11 @@ typedef void (^clearTextBlock)(void);
 //添加的向外的手势，为了避免和查看log日志的手势冲突  isShow之后把手势移除
 @property (nonatomic, strong)UIPanGestureRecognizer *panOutGesture;
 @property (nonatomic,strong) GHConsoleWindow *consoleWindow;
+///性能优化，使用全局变量压测会有明显性能提升
+@property (nonatomic, copy)NSString *funcString;
+@property (nonatomic, strong)NSDateFormatter *formatter;
+@property (nonatomic, copy)NSString *msgString;
+@property (nonatomic, strong)NSDate *now;
 @end
 @implementation GHConsole
 
@@ -195,12 +201,14 @@ typedef void (^clearTextBlock)(void);
     return _consoleWindow;
 }
 
-//开始显示log日志 更新频率0.5s
+//开始显示log日志
 - (void)startPrintLog{
     _isFullScreen = NO;
     _isShowConsole = YES;
     self.consoleWindow.hidden = NO;
     _logSting = [NSMutableString new];
+    _formatter = [[NSDateFormatter alloc]init];
+    _formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss.SSS";
     GGLog(@"GHConsole start working");
     
 }
@@ -218,21 +226,18 @@ typedef void (^clearTextBlock)(void);
     if (format) {
         va_start(args, format);
         
-        NSString *message = nil;
-        message = [[NSString alloc] initWithFormat:format arguments:args];
+        _msgString = [[NSString alloc] initWithFormat:format arguments:args];
         //UI上去展示日志内容
-        [self printMSG:message andFunc:function andLine:line];
+        [self printMSG:_msgString andFunc:function andLine:line];
     }
 }
 
 - (void)printMSG:(NSString *)msg andFunc:(const char *)function andLine:(NSInteger )Line{
     //方法名C转OC
-    NSString *funcString = [NSString stringWithUTF8String:function];
-    ///时间格式化
-    NSDateFormatter *formatter = [[NSDateFormatter alloc]init];
-    formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss.SSS";
+    _funcString = [NSString stringWithUTF8String:function];
     
-    msg = [NSString stringWithFormat:@"%@ %@ line-%ld  %@\n\n",[formatter stringFromDate:[NSDate new]],funcString,(long)Line,msg];
+    _now =[NSDate new];
+    msg = [NSString stringWithFormat:@"%@ %@ line-%ld  %@\n\n",[_formatter stringFromDate:_now],_funcString,(long)Line,msg];
     
     const char *resultCString = NULL;
     if ([msg canBeConvertedToEncoding:NSUTF8StringEncoding]) {
@@ -240,8 +245,8 @@ typedef void (^clearTextBlock)(void);
     }
     //控制台打印
     printf("%s", resultCString);
-    if (self.isShowConsole) {//如果显示的话手机上的控制台开始显示。
-        [_logSting appendString:msg];
+    [_logSting appendString:msg];
+    if (_isShowConsole && _isFullScreen) {//如果显示的话手机上的控制台开始显示。
         dispatch_async(dispatch_get_main_queue(), ^{
             self.consoleWindow.consoleRootViewController.text = _logSting;
         });
@@ -295,6 +300,9 @@ typedef void (^clearTextBlock)(void);
     
     if (_isFullScreen == NO) {//变成全屏
         [UIView animateWithDuration:0.2 animations:^{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                self.consoleWindow.consoleRootViewController.text = _logSting;
+            });
             [self.consoleWindow maxmize];
         } completion:^(BOOL finished) {
             _isFullScreen = YES;
