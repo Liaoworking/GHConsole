@@ -237,7 +237,7 @@ typedef void (^clearTextBlock)(void);
     _funcString = [NSString stringWithUTF8String:function];
     
     _now =[NSDate new];
-    msg = [NSString stringWithFormat:@"%@ %@ line-%ld  %@\n\n",[_formatter stringFromDate:_now],_funcString,(long)Line,msg];
+    msg = [NSString stringWithFormat:@"%@ %@ line-%ld\n%@\n\n",[_formatter stringFromDate:_now],_funcString,(long)Line,msg];
     
     const char *resultCString = NULL;
     if ([msg canBeConvertedToEncoding:NSUTF8StringEncoding]) {
