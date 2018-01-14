@@ -14,14 +14,19 @@
 #define USE_PTHREAD_THREADID_NP                (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iOS_8_0)
 #pragma mark- GHConsoleRootViewController
 typedef void (^clearTextBlock)(void);
+typedef void (^readTextBlock)(void);
+
 @interface GHConsoleRootViewController : UIViewController
 {
     UITextView *_textView;
     UIButton *_clearBtn;
+    UIButton *_saveBtn;
+    UIButton *_readLogBtn;
 }
 @property (nonatomic,copy) NSString *text;
 @property (nonatomic) BOOL scrollEnable;
 @property (nonatomic, copy) clearTextBlock clearLogText;
+@property (nonatomic, copy) readTextBlock readLog;
 
 @end
 
@@ -31,6 +36,8 @@ typedef void (^clearTextBlock)(void);
     [super viewDidLoad];
     [self configTextField];
     [self configClearBtn];
+    [self configSaveBtn];
+    [self configReadBtn];
 }
 
 - (void)configTextField{
@@ -62,19 +69,60 @@ typedef void (^clearTextBlock)(void);
 
 - (void)configClearBtn{
     
-    _clearBtn = [[UIButton alloc]initWithFrame:CGRectMake(self.view.bounds.size.width - 100, 20, 80, 30)];
+    _clearBtn = [[UIButton alloc]initWithFrame:CGRectMake(self.view.bounds.size.width - 100, 20, 60, 30)];
     [_clearBtn addTarget:self action:@selector(clearText) forControlEvents:UIControlEventTouchUpInside];
     [_clearBtn setTitle:@"clear" forState:UIControlStateNormal];
-    [_clearBtn setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
+    [_clearBtn setTitleColor:[UIColor colorWithRed:0/255.0 green:212/255.0 blue:59/255.0 alpha:1] forState:UIControlStateNormal];
     _clearBtn.layer.borderWidth = 2;
-    _clearBtn.layer.borderColor = [[UIColor whiteColor] CGColor];
+    _clearBtn.layer.borderColor = [UIColor colorWithRed:0/255.0 green:212/255.0 blue:59/255.0 alpha:1].CGColor;
     [self.view addSubview:_clearBtn];
     
 }
 
+- (void)configSaveBtn{
+    
+    _saveBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMinX(_clearBtn.frame) - 70, 20, 60, 30)];
+    [_saveBtn addTarget:self action:@selector(saveText) forControlEvents:UIControlEventTouchUpInside];
+    [_saveBtn setTitle:@"save" forState:UIControlStateNormal];
+    [_saveBtn setTitleColor:[UIColor colorWithRed:251/255.0 green:187/255.0 blue:0/255.0 alpha:1] forState:UIControlStateNormal];
+    _saveBtn.layer.borderWidth = 2;
+    _saveBtn.layer.borderColor = [[UIColor colorWithRed:251/255.0 green:187/255.0 blue:0/255.0 alpha:1] CGColor];
+    [self.view addSubview:_saveBtn];
+}
+
+- (void)configReadBtn{
+    
+    _readLogBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMinX(_saveBtn.frame) - 70, 20, 60, 30)];
+    [_readLogBtn addTarget:self action:@selector(readSavedText) forControlEvents:UIControlEventTouchUpInside];
+    [_readLogBtn setTitle:@"load" forState:UIControlStateNormal];
+    [_readLogBtn setTitleColor:[UIColor colorWithRed:247/255.0 green:59/255.0 blue:59/255.0 alpha:1] forState:UIControlStateNormal];
+    _readLogBtn.layer.borderWidth = 2;
+    _readLogBtn.layer.borderColor = [[UIColor colorWithRed:247/255.0 green:59/255.0 blue:59/255.0 alpha:1] CGColor];
+    _readLogBtn.hidden = [[NSUserDefaults standardUserDefaults]objectForKey:@"textSaveKey"]?false:true;
+    [self.view addSubview:_readLogBtn];
+}
+
+
 - (void)clearText{
     if (self.clearLogText) {
         self.clearLogText();
+    }
+}
+
+- (void)saveText{
+    if (_textView.text.length<1) {
+        return;
+    }else{
+        [[NSUserDefaults standardUserDefaults]setObject:_textView.text forKey:@"textSaveKey"];
+        if (_readLogBtn.isHidden) {
+            _readLogBtn.hidden = false;
+        }
+    }
+}
+
+- (void)readSavedText{
+    if (self.readLog) {
+        self.readLog();
     }
 }
 
@@ -188,6 +236,10 @@ typedef void (^clearTextBlock)(void);
             __strong __typeof(weakSelf)strongSelf = weakSelf;
             [strongSelf clearAllText];
         };
+        _consoleWindow.consoleRootViewController.readLog = ^{
+            __strong __typeof(weakSelf)strongSelf = weakSelf;
+            [strongSelf readSavedText];
+        };
         //添加右滑隐藏手势
         UISwipeGestureRecognizer *swipeGest = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeLogView:)];
         //添加双击全屏或者隐藏的手势
@@ -255,6 +307,12 @@ typedef void (^clearTextBlock)(void);
 
 - (void)clearAllText{
     _logSting = [NSMutableString stringWithString:@""];
+    self.consoleWindow.consoleRootViewController.text = _logSting;
+}
+
+- (void)readSavedText{
+   NSString *savedString = [[NSUserDefaults standardUserDefaults]objectForKey:@"textSaveKey"];
+    _logSting = [savedString stringByAppendingString:@"\n-----------------RECORD-----------------\n\n"].mutableCopy;
     self.consoleWindow.consoleRootViewController.text = _logSting;
 }
 
