@@ -99,6 +99,7 @@ Easy to use and uninstall.
 you can see **the number of the line** for your GGLog( ) and **function name** clearly in GHConslole.
 
 A **clear button** on GHConsole can remove some useless log.
+A **save button** and **load button** can save the log, and read the log you have saved. It's easy to check the problem in your apps.
 
 ## Configuration
 
