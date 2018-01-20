@@ -265,7 +265,7 @@ typedef void (^readTextBlock)(void);
     
 }
 //停止显示
-- (void)stopPringting{
+- (void)stopPrinting{
     self.consoleWindow.hidden = YES;
     _isShowConsole = NO;
 }

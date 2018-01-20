@@ -34,7 +34,7 @@ format : (frmt), ## __VA_ARGS__]
 
 - (void)startPrintLog;
 
-- (void)stopPringting;
+- (void)stopPrinting;
 
 - (void)function:(const char *)function
             line:(NSUInteger)line

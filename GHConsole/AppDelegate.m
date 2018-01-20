@@ -26,7 +26,7 @@
      you can use funcion  [[GHConsole sharedConsole] stopPringting] to disable GHConsole;
      or you can annotate startPrintLog function.
      
-     如果不需要显示GHConsole 你可以使用 [[GHConsole sharedConsole] stopPringting]   或者直接把启动方法注释掉即可， 谢谢。
+     如果不需要显示GHConsole 你可以使用 [[GHConsole sharedConsole] stopPrinting]   或者直接把启动方法注释掉即可， 谢谢。
      */
     
     [[GHConsole sharedConsole] startPrintLog];
