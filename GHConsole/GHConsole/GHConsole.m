@@ -161,7 +161,7 @@ typedef void (^readTextBlock)(void);
 + (instancetype)consoleWindow {
     GHConsoleWindow *window = [[self alloc] init];
     window.windowLevel = UIWindowLevelStatusBar + 100;
-    window.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - 30, 120, [UIScreen mainScreen].bounds.size.width - 60, 90);
+    window.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - 30, 120, 30, 90);
     return window;
 }
 
@@ -175,7 +175,7 @@ typedef void (^readTextBlock)(void);
 }
 
 - (void)minimize {
-    self.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - 30, 120, [UIScreen mainScreen].bounds.size.width - 60, 90);
+    self.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - 30, 120, 30, 90);
     self.consoleRootViewController.scrollEnable = NO;
 }
 
