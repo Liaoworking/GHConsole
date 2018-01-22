@@ -48,9 +48,7 @@ typedef void (^readTextBlock)(void);
     _textView.font = [UIFont boldSystemFontOfSize:13];
 
     _textView.textColor = [UIColor whiteColor];
-    _textView.editable = NO;
-    _textView.scrollEnabled = NO;
-    _textView.selectable = NO;
+    _textView.editable = _textView.scrollEnabled =_textView.selectable = NO;
     _textView.alwaysBounceVertical = YES;
 #ifdef __IPHONE_11_0
     if([_textView respondsToSelector:@selector(setContentInsetAdjustmentBehavior:)]){
@@ -261,8 +259,7 @@ typedef void (^readTextBlock)(void);
     _logSting = [NSMutableString new];
     _formatter = [[NSDateFormatter alloc]init];
     _formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss.SSS";
-    GGLog(@"GHConsole start working");
-    
+    GGLog(@"GHConsole start working!");
 }
 //停止显示
 - (void)stopPrinting{
@@ -356,7 +353,7 @@ typedef void (^readTextBlock)(void);
 //双击操作
 - (void)doubleTapTextView:(UITapGestureRecognizer *)tapGesture{
     
-    if (_isFullScreen == NO) {//变成全屏
+    if (!_isFullScreen) {//变成全屏
         [UIView animateWithDuration:0.2 animations:^{
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.consoleWindow.consoleRootViewController.text = _logSting;

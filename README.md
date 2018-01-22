@@ -68,7 +68,7 @@ GGLog(@"%@",parametersDict);
 GGLog(@"%@",responsJSON);
 ```
 When you double tap  The GHConsole in your app and then the appearance of it just like this.
-![Alt text](http://img.njbanban.com/GHOwn/67732829-C757-49AB-B7A4-2089124C580E.png)
+![Alt text](http://img.njbanban.com/GHOwn/newConsloeIMG.PNG)
 
 #### Stop Logging
 
