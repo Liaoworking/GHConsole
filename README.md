@@ -6,7 +6,10 @@
 中文版本请参看[这里](https://github.com/Liaoworking/GHConsole/wiki)
 
 
+
 An easy  and wireless way to get what you had logged and wanted to see in your App.
+
+##[GHConsole/Swift](https://github.com/Liaoworking/GHConsole-swift)
 
 [![Pod Version](https://img.shields.io/badge/Pod-1.4.0-6193DF.svg)](https://cocoapods.org/)
 ![Swift Version](https://img.shields.io/badge/xCode-9.1+-blue.svg)
@@ -60,6 +63,7 @@ You just only initialize GHConsole in your appDelegate.m When your App are launc
 ```
 
 And then, you can use GGLog( ) like NSLog( )
+
 **Objective-C usage**
 
 ```Objective-C
@@ -96,6 +100,7 @@ When you double tap  The GHConsole in your app and then the appearance of it jus
 #### Stop Logging
 
 Call when you're done with GHConsole.
+
 **Objective-C usage**
 
 ```Objective-C
