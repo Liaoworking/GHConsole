@@ -41,7 +41,7 @@ You can find example projects [here](https://github.com/liaoworking/GHConsole)
 #### Start Log on GHConsole
 
 You just only initialize GHConsole in your appDelegate.m When your App are launching.
-
+**Objective-C usage**
 
 ```Objective-C
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
@@ -50,11 +50,20 @@ You just only initialize GHConsole in your appDelegate.m When your App are launc
 }
 ```
 
+**Swift usage**
+
+```Swift
+ func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        GHConsole.sharedConsole.startPrintLog()
+        return true
+    }
+```
+
 And then, you can use GGLog( ) like NSLog( )
+**Objective-C usage**
 
 ```Objective-C
 GGLog(@"This is some log I just want to show in GHConsole")；
-
 
 
 
@@ -67,17 +76,36 @@ GGLog(@"%@",parametersDict);
 //if you  want to see the responsJSon from the API, you can just use GGLog( ) like NSLog( ) here.
 GGLog(@"%@",responsJSON);
 ```
+
+**Swift usage**
+
+```Swift
+GGLog("This is a log I just want to show in GHConsole")
+        
+let parameterDict = ["paraKey1":"paraValue1","paraKey2":"paraValue2","paraKey3":"paraValue3"] as [String:Any]
+GGLog("\(parameterDict)")
+        
+//if you  want to see the responsJSon from the API, you can just use GGLog( ) like NSLog( ) here.
+GGLog("if you  want to see the responsJSon from the API, you can just use GGLog( ) like NSLog( ) here!")
+```
+
+
 When you double tap  The GHConsole in your app and then the appearance of it just like this.
-![Alt text](http://img.njbanban.com/GHOwn/newConsloeIMG.PNG)
+![Alt text](http://img.njbanban.com/GHOwn/IMG_1609.PNG)
 
 #### Stop Logging
 
 Call when you're done with GHConsole.
+**Objective-C usage**
 
 ```Objective-C
 [GHConsole shareConsole]stop];
 ```
+**Swift usage**
 
+```Swift
+GHConsole.sharedConsole.stopPrinting()
+```
 if you don't want to see the GHConsole,you just need to annotate it.
 
 ```Objective-C
