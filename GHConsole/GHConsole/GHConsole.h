@@ -4,6 +4,7 @@
 //
 //  Created by liaoWorking on 22/11/2017.
 //  Copyright © 2017 liaoWorking. All rights reserved.
+//  https://github.com/Liaoworking/GHConsole for lastest version
 //
 
 #import <UIKit/UIKit.h>
