@@ -197,19 +197,15 @@ typedef void (^readTextBlock)(void);
 }
 
 @property (nonatomic, strong)NSString *string;
-///是否显示控制台
 @property (nonatomic, assign)BOOL isShowConsole;
-//添加一个全局的logString 防止局部清除
+//a global variable to prove performance
 @property (nonatomic, copy)NSMutableString *logSting;
-//记录打印数，来确定打印更新
+@property (nonatomic, copy)NSString *funcString;
+
 @property (nonatomic, assign)NSInteger currentLogCount;
-//是否全屏
 @property (nonatomic, assign)BOOL isFullScreen;
-//添加的向外的手势，为了避免和查看log日志的手势冲突  isShow之后把手势移除
 @property (nonatomic, strong)UIPanGestureRecognizer *panOutGesture;
 @property (nonatomic,strong) GHConsoleWindow *consoleWindow;
-///性能优化，使用全局变量压测会有明显性能提升
-@property (nonatomic, copy)NSString *funcString;
 @property (nonatomic, strong)NSDateFormatter *formatter;
 @property (nonatomic, copy)NSString *msgString;
 @property (nonatomic, strong)NSDate *now;
@@ -241,9 +237,8 @@ typedef void (^readTextBlock)(void);
             __strong __typeof(weakSelf)strongSelf = weakSelf;
             [strongSelf readSavedText];
         };
-        //添加右滑隐藏手势
+        //right direction swipe and double tap to make the console be hidden
         UISwipeGestureRecognizer *swipeGest = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeLogView:)];
-        //添加双击全屏或者隐藏的手势
         UITapGestureRecognizer *tappGest = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(doubleTapTextView:)];
         tappGest.numberOfTapsRequired = 2;
         
@@ -254,7 +249,9 @@ typedef void (^readTextBlock)(void);
     return _consoleWindow;
 }
 
-//开始显示log日志
+/**
+ start printing
+ */
 - (void)startPrintLog{
     _isFullScreen = NO;
     _isShowConsole = YES;
@@ -264,8 +261,9 @@ typedef void (^readTextBlock)(void);
     _formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss.SSS";
     GGLog(@"GHConsole start working!");
 }
-//停止显示
-- (void)stopPrinting{
+/**
+ stop printing
+ */- (void)stopPrinting{
     self.consoleWindow.hidden = YES;
     _isShowConsole = NO;
 }
@@ -279,13 +277,13 @@ typedef void (^readTextBlock)(void);
         va_start(args, format);
         
         _msgString = [[NSString alloc] initWithFormat:format arguments:args];
-        //UI上去展示日志内容
+        //showing log in UI
         [self printMSG:_msgString andFunc:function andLine:line];
     }
 }
 
 - (void)printMSG:(NSString *)msg andFunc:(const char *)function andLine:(NSInteger )Line{
-    //方法名C转OC
+    //convert C function name to OC
     _funcString = [NSString stringWithUTF8String:function];
     
     _now =[NSDate new];
@@ -295,7 +293,7 @@ typedef void (^readTextBlock)(void);
     if ([msg canBeConvertedToEncoding:NSUTF8StringEncoding]) {
         resultCString = [msg cStringUsingEncoding:NSUTF8StringEncoding];
     }
-    //控制台打印
+    //printing at system concole
     printf("%s", resultCString);
     [_logSting appendString:msg];
     if (_isShowConsole && _isFullScreen) {//如果显示的话手机上的控制台开始显示。
@@ -316,8 +314,10 @@ typedef void (^readTextBlock)(void);
     self.consoleWindow.consoleRootViewController.text = _logSting;
 }
 
-#pragma mark-  三种手势的添加
-//右滑隐藏
+#pragma mark- gesture function
+/**
+ right direction to hidden
+ */
 - (void)swipeLogView:(UISwipeGestureRecognizer *)swipeGesture{
     
     if (_isFullScreen) {//如果是显示情况并且往右边滑动就隐藏
@@ -331,12 +331,14 @@ typedef void (^readTextBlock)(void);
         }
     }
 }
-//scroll vertical.
+/**
+ scroll vertical.
+ */
 - (void)panOutTextView:(UIPanGestureRecognizer *)panGesture{
     
-    if (_isFullScreen == YES) {//如果是显示情况什么都不管。
+    if (_isFullScreen == YES) {// do nothing when it fullScreen.
         return;
-    }else{//如果是隐藏情况上下移动就
+    }else{
         if(panGesture.state == UIGestureRecognizerStateChanged){
             CGPoint transalte = [panGesture translationInView:[UIApplication sharedApplication].keyWindow];
             CGRect rect = self.consoleWindow.frame;
@@ -353,7 +355,9 @@ typedef void (^readTextBlock)(void);
         }
     }
 }
-//双击操作
+/**
+ double tap
+ */
 - (void)doubleTapTextView:(UITapGestureRecognizer *)tapGesture{
     
     if (!_isFullScreen) {//变成全屏
