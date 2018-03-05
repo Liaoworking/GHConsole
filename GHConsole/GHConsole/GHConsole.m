@@ -44,12 +44,10 @@ typedef void (^readTextBlock)(void);
 }
 
 - (void)configTextField{
-    
     _textView = [[UITextView alloc] initWithFrame:self.view.bounds];
     _textView.backgroundColor = [UIColor blackColor];
     _textView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     _textView.font = [UIFont boldSystemFontOfSize:13];
-
     _textView.textColor = [UIColor whiteColor];
     _textView.editable = _textView.scrollEnabled =_textView.selectable = NO;
     _textView.alwaysBounceVertical = YES;
@@ -65,11 +63,9 @@ typedef void (^readTextBlock)(void);
     [self.view addSubview:_textView];
     _textView.text = self.text;
     [_textView scrollRectToVisible:CGRectMake(0, _textView.contentSize.height-15, _textView.contentSize.width, 10) animated:YES];
-    
 }
 
 - (void)configClearBtn{
-    
     _clearBtn = [[UIButton alloc]initWithFrame:CGRectMake(self.view.bounds.size.width - 80, KIsiPhoneX?40:20, 60, 30)];
     [_clearBtn addTarget:self action:@selector(clearText) forControlEvents:UIControlEventTouchUpInside];
     [_clearBtn setTitle:@"clear" forState:UIControlStateNormal];
@@ -77,11 +73,9 @@ typedef void (^readTextBlock)(void);
     _clearBtn.layer.borderWidth = 2;
     _clearBtn.layer.borderColor = [UIColor colorWithRed:0/255.0 green:212/255.0 blue:59/255.0 alpha:1].CGColor;
     [self.view addSubview:_clearBtn];
-    
 }
 
 - (void)configSaveBtn{
-    
     _saveBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMinX(_clearBtn.frame) - 70, KIsiPhoneX?40:20, 60, 30)];
     [_saveBtn addTarget:self action:@selector(saveText) forControlEvents:UIControlEventTouchUpInside];
     [_saveBtn setTitle:@"save" forState:UIControlStateNormal];
@@ -92,7 +86,6 @@ typedef void (^readTextBlock)(void);
 }
 
 - (void)configReadBtn{
-    
     _readLogBtn = [[UIButton alloc]initWithFrame:CGRectMake(CGRectGetMinX(_saveBtn.frame) - 70, KIsiPhoneX?40:20, 60, 30)];
     [_readLogBtn addTarget:self action:@selector(readSavedText) forControlEvents:UIControlEventTouchUpInside];
     [_readLogBtn setTitle:@"load" forState:UIControlStateNormal];
@@ -214,7 +207,6 @@ typedef void (^readTextBlock)(void);
 
 
 + (instancetype)sharedConsole {
-    
     static GHConsole *_instance;
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
