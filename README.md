@@ -117,22 +117,37 @@ if you don't want to see the GHConsole,you just need to annotate it.
 //[[GHConsole sharedConsole]startPrintLog];
 ```
 
+##Performance
+GHConsole is based on `printf` in C. Better performance to NSLog.
+
+
+
+The time consuming of printing a string for 10000 times
+![Alt text](http://img.njbanban.com/GHOwn/WX20180316-133618.png)
+
+Testing Environment: iPhone 6
+System Version: iOS 11.2.5
+Unit of Time : ms
+
+
+
 
 ## Features
-GHConsole is at an inconspicuous position in your app.Multiple gesture was added in GHConsole. double tap to make it Full Screen and back.
+* GHConsole is at an inconspicuous position in your app.Multiple gesture was added in GHConsole. double tap to make it Full Screen and back.
 
-This framework only contains two files 
+* This framework only contains two files 
 
-**GHConsole.h**
+    **GHConsole.h**
 
-**GHConsole.m**
+    **GHConsole.m**
 
-Easy to use and uninstall.
+* Easy to use and uninstall.
 
-you can see **the number of the line** for your GGLog( ) and **function name** clearly in GHConslole.
+* you can see **the number of the line** for your GGLog( ) and **function name** clearly in GHConslole.
 
-A **clear button** on GHConsole can remove some useless log.
-A **save button** and **load button** can save the log, and read the log you have saved. It's easy to check the problem in your apps.
+* A **clear button** on GHConsole can remove some useless log.
+* A **save button** and **load button** can save the log, and read the log you have saved. It's easy to check the problem in your apps.
+* At **release mode**, there will be no more any log output in your console.
 
 ## Configuration
 
