@@ -126,7 +126,9 @@ GHConsole is based on `printf` in C. Better performance to NSLog.
 
 The time consuming of printing a string for 10000 times
 
+
 ![Alt text](http://img.njbanban.com/GHOwn/WX20180316-133618.png)
+
 
 Testing Environment: iPhone 6
 
