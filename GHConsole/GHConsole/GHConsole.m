@@ -252,6 +252,12 @@ typedef void (^readTextBlock)(void);
     _formatter = [[NSDateFormatter alloc]init];
     _formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss.SSS";
     GGLog(@"GHConsole start working!");
+  
+    //如果想在release情况下也能显示控制台打印请把stopPrinting方法注释掉
+    // if you want to see GHConsole at the release mode you will annotating the stopPrinting func below here.
+#ifndef DEBUG
+    [self stopPrinting];
+#endif
 }
 /**
  stop printing

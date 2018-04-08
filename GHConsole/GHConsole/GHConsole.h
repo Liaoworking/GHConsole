@@ -10,6 +10,7 @@
 #import <UIKit/UIKit.h>
 
 //release model with no log
+//如果想要在release下显示打印，注释下面宏定义即可
 #ifdef DEBUG
 #define GGLog(frmt, ...)    LOG_OBJC_MAYBE(frmt, ##__VA_ARGS__)
 #else
