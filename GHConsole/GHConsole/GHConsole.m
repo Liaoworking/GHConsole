@@ -131,6 +131,10 @@ typedef void (^readTextBlock)(void);
 - (void)setScrollEnable:(BOOL)scrollEnable {
     _textView.scrollEnabled = scrollEnable;
 }
+
+- (BOOL)prefersStatusBarHidden{
+    return false;
+}
 @end
 
 
