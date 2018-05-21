@@ -153,6 +153,11 @@ typedef void (^readTextBlock)(void);
  */
 - (void)minimize;
 
+/**
+ the point of origin X-axis and Y-axis 
+ */
+@property (nonatomic, assign)CGPoint axisXY;
+
 @property (nonatomic,strong) GHConsoleRootViewController *consoleRootViewController;
 @end
 
@@ -175,7 +180,7 @@ typedef void (^readTextBlock)(void);
 }
 
 - (void)minimize {
-    self.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - 30, 120, 30, 90);
+    self.frame = CGRectMake(_axisXY.x, _axisXY.y, 30, 90);
     self.consoleRootViewController.scrollEnable = NO;
 }
 
@@ -224,6 +229,7 @@ typedef void (^readTextBlock)(void);
     if(!_consoleWindow){
         _consoleWindow = [GHConsoleWindow consoleWindow];
         _consoleWindow.rootViewController = [GHConsoleRootViewController new];
+        _consoleWindow.axisXY = _consoleWindow.frame.origin;
         __weak __typeof__(self) weakSelf = self;
         _consoleWindow.consoleRootViewController.clearLogText = ^{
             __strong __typeof(weakSelf)strongSelf = weakSelf;
@@ -353,6 +359,7 @@ typedef void (^readTextBlock)(void);
                 rect.origin.y = maxY;
             }
             self.consoleWindow.frame = rect;
+            self.consoleWindow.axisXY = rect.origin;
             [panGesture setTranslation:CGPointZero inView:[UIApplication sharedApplication].keyWindow];
         }
     }
