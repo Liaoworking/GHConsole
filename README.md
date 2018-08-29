@@ -117,7 +117,7 @@ if you don't want to see the GHConsole,you just need to annotate it.
 //[[GHConsole sharedConsole]startPrintLog];
 ```
 
-##Performance
+## Performance
 
 
 GHConsole is based on `printf` in C. Better performance to NSLog.
