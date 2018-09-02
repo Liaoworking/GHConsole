@@ -49,7 +49,8 @@ typedef void (^readTextBlock)(void);
     _textView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     _textView.font = [UIFont boldSystemFontOfSize:13];
     _textView.textColor = [UIColor whiteColor];
-    _textView.editable = _textView.scrollEnabled =_textView.selectable = NO;
+    _textView.editable = _textView.scrollEnabled = NO;
+    _textView.selectable = YES;
     _textView.alwaysBounceVertical = YES;
 #ifdef __IPHONE_11_0
     if([_textView respondsToSelector:@selector(setContentInsetAdjustmentBehavior:)]){
