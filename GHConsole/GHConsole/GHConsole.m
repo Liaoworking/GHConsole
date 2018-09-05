@@ -21,15 +21,19 @@ typedef void (^readTextBlock)(void);
 
 @interface GHConsoleRootViewController : UIViewController
 {
+    @public
     UITextView *_textView;
     UIButton *_clearBtn;
     UIButton *_saveBtn;
     UIButton *_readLogBtn;
+    UIButton *_minimize;
+    UIImageView *_imgV;
 }
 @property (nonatomic,copy) NSString *text;
 @property (nonatomic) BOOL scrollEnable;
 @property (nonatomic, copy) clearTextBlock clearLogText;
 @property (nonatomic, copy) readTextBlock readLog;
+@property (nonatomic,strong) void(^minimizeActionBlock)(void);
 
 @end
 
@@ -41,16 +45,19 @@ typedef void (^readTextBlock)(void);
     [self configClearBtn];
     [self configSaveBtn];
     [self configReadBtn];
+    [self configMinimizeBtn];
+    [self createImgV];
 }
 
 - (void)configTextField{
-    _textView = [[UITextView alloc] initWithFrame:self.view.bounds];
+    self.view.clipsToBounds = YES;
+    _textView = [[UITextView alloc] initWithFrame:CGRectMake(0, (KIsiPhoneX?40:20) + 35, self.view.bounds.size.width, self.view.bounds.size.height - (KIsiPhoneX?40:20) - 35)];
     _textView.backgroundColor = [UIColor blackColor];
     _textView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     _textView.font = [UIFont boldSystemFontOfSize:13];
     _textView.textColor = [UIColor whiteColor];
     _textView.editable = _textView.scrollEnabled = NO;
-    _textView.selectable = YES;
+    _textView.selectable = NO;
     _textView.alwaysBounceVertical = YES;
 #ifdef __IPHONE_11_0
     if([_textView respondsToSelector:@selector(setContentInsetAdjustmentBehavior:)]){
@@ -97,6 +104,28 @@ typedef void (^readTextBlock)(void);
     [self.view addSubview:_readLogBtn];
 }
 
+- (void)configMinimizeBtn{
+    _minimize = [[UIButton alloc]initWithFrame:CGRectMake(20, KIsiPhoneX?40:20, 80, 30)];
+    [_minimize addTarget:self action:@selector(minimizeAction:) forControlEvents:UIControlEventTouchUpInside];
+    [_minimize setTitle:@"minimize" forState:UIControlStateNormal];
+    [_minimize setTitleColor:[UIColor cyanColor] forState:UIControlStateNormal];
+    _minimize.layer.borderWidth = 2;
+    _minimize.layer.borderColor = [[UIColor cyanColor] CGColor];
+    [self.view addSubview:_minimize];
+}
+
+- (void)createImgV {
+    _imgV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon"]];
+    _imgV.frame = self.view.bounds;
+    _imgV.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
+    [self.view addSubview:_imgV];
+}
+
+- (void)minimizeAction:(UIButton *)sender {
+    if(_minimizeActionBlock){
+        _minimizeActionBlock();
+    }
+}
 
 - (void)clearText{
     if (self.clearLogText) {
@@ -166,8 +195,9 @@ typedef void (^readTextBlock)(void);
 @implementation GHConsoleWindow
 + (instancetype)consoleWindow {
     GHConsoleWindow *window = [[self alloc] init];
+    window.backgroundColor = [UIColor clearColor];
     window.windowLevel = UIWindowLevelStatusBar + 100;
-    window.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - 30, 120, 30, 90);
+    window.frame = CGRectMake([UIScreen mainScreen].bounds.size.width - 40, 120, 40, 40);
     return window;
 }
 
@@ -181,7 +211,7 @@ typedef void (^readTextBlock)(void);
 }
 
 - (void)minimize {
-    self.frame = CGRectMake(_axisXY.x, _axisXY.y, 30, 90);
+    self.frame = CGRectMake(_axisXY.x, _axisXY.y, 40, 40);
     self.consoleRootViewController.scrollEnable = NO;
 }
 
@@ -243,11 +273,23 @@ typedef void (^readTextBlock)(void);
         //right direction swipe and double tap to make the console be hidden
         UISwipeGestureRecognizer *swipeGest = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeLogView:)];
         UITapGestureRecognizer *tappGest = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(doubleTapTextView:)];
-        tappGest.numberOfTapsRequired = 2;
+//        tappGest.numberOfTapsRequired = 2;
         
         [_consoleWindow.rootViewController.view addGestureRecognizer:swipeGest];
         [_consoleWindow.rootViewController.view addGestureRecognizer:tappGest];
         [_consoleWindow.rootViewController.view addGestureRecognizer:self.panOutGesture];
+        _consoleWindow.consoleRootViewController.minimizeActionBlock = ^{
+            __strong __typeof(weakSelf)strongSelf = weakSelf;
+            [strongSelf minimizeAnimation];
+        };
+        _consoleWindow.rootViewController.view.backgroundColor = [UIColor clearColor];
+        [self.consoleWindow.consoleRootViewController.view.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if(obj != self.consoleWindow.consoleRootViewController->_imgV){
+                obj.hidden = YES;
+            }else{
+                obj.hidden = NO;
+            }
+        }];
     }
     return _consoleWindow;
 }
@@ -371,6 +413,16 @@ typedef void (^readTextBlock)(void);
 - (void)doubleTapTextView:(UITapGestureRecognizer *)tapGesture{
     
     if (!_isFullScreen) {//变成全屏
+        self.consoleWindow.consoleRootViewController->_imgV.hidden = YES;
+        self.consoleWindow.consoleRootViewController.view.backgroundColor = [UIColor blackColor];
+        self.consoleWindow.backgroundColor = [UIColor blackColor];
+        [self.consoleWindow.consoleRootViewController.view.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if(obj != self.consoleWindow.consoleRootViewController->_imgV){
+                obj.hidden = NO;
+            }else{
+                obj.hidden = YES;
+            }
+        }];
         [UIView animateWithDuration:0.2 animations:^{
             dispatch_async(dispatch_get_main_queue(), ^{
                 self.consoleWindow.consoleRootViewController.text = _logSting;
@@ -378,16 +430,39 @@ typedef void (^readTextBlock)(void);
             [self.consoleWindow maxmize];
         } completion:^(BOOL finished) {
             _isFullScreen = YES;
+            self.consoleWindow.consoleRootViewController->_textView.selectable = YES;
             [self.consoleWindow.rootViewController.view removeGestureRecognizer:self.panOutGesture];
         }];
     }else{//退出全屏
-        [UIView animateWithDuration:0.2 animations:^{
-            [self.consoleWindow minimize];
-        } completion:^(BOOL finished) {
-            _isFullScreen = NO;
-            [self.consoleWindow.rootViewController.view addGestureRecognizer:self.panOutGesture];
-        }];
+//        [UIView animateWithDuration:0.2 animations:^{
+//            [self.consoleWindow minimize];
+//        } completion:^(BOOL finished) {
+//            _isFullScreen = NO;
+//            self.consoleWindow.consoleRootViewController->_textView.selectable = NO;
+//            [self.consoleWindow.rootViewController.view addGestureRecognizer:self.panOutGesture];
+//        }];
     }
+}
+
+- (void)minimizeAnimation {
+    //退出全屏
+    [UIView animateWithDuration:0.2 animations:^{
+        [self.consoleWindow minimize];
+    } completion:^(BOOL finished) {
+        _isFullScreen = NO;
+        self.consoleWindow.consoleRootViewController->_textView.selectable = NO;
+        [self.consoleWindow.rootViewController.view addGestureRecognizer:self.panOutGesture];
+        self.consoleWindow.consoleRootViewController->_imgV.hidden = NO;
+        self.consoleWindow.consoleRootViewController.view.backgroundColor = [UIColor clearColor];
+        self.consoleWindow.backgroundColor = [UIColor clearColor];
+        [self.consoleWindow.consoleRootViewController.view.subviews enumerateObjectsUsingBlock:^(__kindof UIView * _Nonnull obj, NSUInteger idx, BOOL * _Nonnull stop) {
+            if(obj != self.consoleWindow.consoleRootViewController->_imgV){
+                obj.hidden = YES;
+            }else{
+                obj.hidden = NO;
+            }
+        }];
+    }];
 }
 
 
