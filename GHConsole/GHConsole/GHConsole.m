@@ -52,6 +52,7 @@ typedef void (^readTextBlock)(void);
 - (void)configTextField{
     self.view.clipsToBounds = YES;
     _textView = [[UITextView alloc] initWithFrame:CGRectMake(0, (KIsiPhoneX?40:20) + 35, self.view.bounds.size.width, self.view.bounds.size.height - (KIsiPhoneX?40:20) - 35)];
+    _textView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     _textView.backgroundColor = [UIColor blackColor];
     _textView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     _textView.font = [UIFont boldSystemFontOfSize:13];
