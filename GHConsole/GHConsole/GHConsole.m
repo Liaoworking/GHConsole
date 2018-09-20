@@ -41,7 +41,6 @@ typedef void (^readTextBlock)(void);
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    NSLog(@"currentMode:%@----pixelAspectRatio:%d",NSStringFromCGSize([UIScreen mainScreen].currentMode.size),[UIScreen mainScreen].currentMode.pixelAspectRatio);
     [self configTextField];
     [self configClearBtn];
     [self configSaveBtn];
