@@ -13,7 +13,7 @@
 #import <sys/uio.h>
 #import <pthread/pthread.h>
 #define USE_PTHREAD_THREADID_NP                (kCFCoreFoundationVersionNumber >= kCFCoreFoundationVersionNumber_iOS_8_0)
-#define KIsiPhoneX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size) : NO)
+#define KIsiPhoneX ([UIScreen instancesRespondToSelector:@selector(currentMode)] ? (CGSizeEqualToSize(CGSizeMake(1125, 2436), [[UIScreen mainScreen] currentMode].size)||CGSizeEqualToSize(CGSizeMake(828, 1792), [[UIScreen mainScreen] currentMode].size)||CGSizeEqualToSize(CGSizeMake(1242, 2688), [[UIScreen mainScreen] currentMode].size)) : NO)
 
 #pragma mark- GHConsoleRootViewController
 typedef void (^clearTextBlock)(void);
@@ -41,6 +41,7 @@ typedef void (^readTextBlock)(void);
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    NSLog(@"currentMode:%@----pixelAspectRatio:%d",NSStringFromCGSize([UIScreen mainScreen].currentMode.size),[UIScreen mainScreen].currentMode.pixelAspectRatio);
     [self configTextField];
     [self configClearBtn];
     [self configSaveBtn];
@@ -116,7 +117,9 @@ typedef void (^readTextBlock)(void);
 }
 
 - (void)createImgV {
-    _imgV = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"icon"]];
+    NSString *path = [[NSBundle mainBundle] pathForResource:@"GHConsole.bundle" ofType:nil];
+    path = [path stringByAppendingPathComponent:@"icon.png"];
+    _imgV = [[UIImageView alloc] initWithImage:[UIImage imageWithContentsOfFile:path]];
     _imgV.frame = self.view.bounds;
     _imgV.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:_imgV];
