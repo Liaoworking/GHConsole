@@ -8,7 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		2462801F1FBDB1DF0053B06B /* GHConsole.m in Sources */ = {isa = PBXBuildFile; fileRef = 2462801E1FBDB1DF0053B06B /* GHConsole.m */; };
-		36B83096213FB93900252E30 /* icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 36B83095213FB93900252E30 /* icon@2x.png */; };
+		36443EAB21534A11000FC8CF /* GHConsole.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 36443EAA21534A10000FC8CF /* GHConsole.bundle */; };
 		9F46E6BC1EE1033D00087E4B /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F46E6BB1EE1033D00087E4B /* main.m */; };
 		9F46E6BF1EE1033D00087E4B /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F46E6BE1EE1033D00087E4B /* AppDelegate.m */; };
 		9F46E6C21EE1033D00087E4B /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F46E6C11EE1033D00087E4B /* ViewController.m */; };
@@ -37,7 +37,7 @@
 /* Begin PBXFileReference section */
 		2462801D1FBDB1DF0053B06B /* GHConsole.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GHConsole.h; sourceTree = "<group>"; };
 		2462801E1FBDB1DF0053B06B /* GHConsole.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GHConsole.m; sourceTree = "<group>"; };
-		36B83095213FB93900252E30 /* icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon@2x.png"; sourceTree = "<group>"; };
+		36443EAA21534A10000FC8CF /* GHConsole.bundle */ = {isa = PBXFileReference; lastKnownFileType = file; path = GHConsole.bundle; sourceTree = "<group>"; };
 		9F46E6B71EE1033D00087E4B /* GHConsole.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GHConsole.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9F46E6BB1EE1033D00087E4B /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		9F46E6BD1EE1033D00087E4B /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -80,7 +80,7 @@
 		2462801C1FBDB1DF0053B06B /* GHConsole */ = {
 			isa = PBXGroup;
 			children = (
-				36B83095213FB93900252E30 /* icon@2x.png */,
+				36443EAA21534A10000FC8CF /* GHConsole.bundle */,
 				2462801D1FBDB1DF0053B06B /* GHConsole.h */,
 				2462801E1FBDB1DF0053B06B /* GHConsole.m */,
 			);
@@ -237,8 +237,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				9F46E6CA1EE1033D00087E4B /* LaunchScreen.storyboard in Resources */,
-				36B83096213FB93900252E30 /* icon@2x.png in Resources */,
 				9F46E6C71EE1033D00087E4B /* Assets.xcassets in Resources */,
+				36443EAB21534A11000FC8CF /* GHConsole.bundle in Resources */,
 				9F46E6C51EE1033D00087E4B /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
