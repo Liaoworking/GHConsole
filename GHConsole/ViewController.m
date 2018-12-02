@@ -36,8 +36,14 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(10 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         GGLog(@"In my life best day,any day best day");
     });
-    for(int i=0;i<50;i++){
-        GGLog(@"测试性能,测试性能测试性能测试性能测试性能测试性能");
+    for(int i=0;i<1000;i++){
+        GGLog(@"Performance test");
+    }
+
+    for(int i=0;i<5;i++){
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+            GGLog(@"Thread safe test%@",[NSThread currentThread]);
+        });
     }
 }
 

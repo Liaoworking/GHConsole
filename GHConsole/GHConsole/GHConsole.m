@@ -245,6 +245,7 @@ typedef void (^readTextBlock)(void);
 @property (nonatomic, strong)NSDateFormatter *formatter;
 @property (nonatomic, copy)NSString *msgString;
 @property (nonatomic, strong)NSDate *now;
+@property (nonatomic, strong)NSLock *lock;
 @end
 @implementation GHConsole
 
@@ -307,6 +308,7 @@ typedef void (^readTextBlock)(void);
     _logSting = [NSMutableString new];
     _formatter = [[NSDateFormatter alloc]init];
     _formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss.SSS";
+    _lock = [NSLock new];
     GGLog(@"GHConsole start working!");
   
     //如果想在release情况下也能显示控制台打印请把stopPrinting方法注释掉
@@ -332,7 +334,9 @@ typedef void (^readTextBlock)(void);
         
         _msgString = [[NSString alloc] initWithFormat:format arguments:args];
         //showing log in UI
+        [_lock lock];
         [self printMSG:_msgString andFunc:function andLine:line];
+        [_lock unlock];
     }
 }
 

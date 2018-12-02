@@ -95,7 +95,7 @@ GGLog("if you  want to see the responsJSon from the API, you can just use GGLog(
 
 
 When you double tap  The GHConsole in your app and then the appearance of it just like this.
-![Alt text](http://img.njbanban.com/GHOwn/IMG_1609.PNG)
+![Alt text](http://img.njbanban.com/GHOwnedSnip20181202_9.png)
 
 #### Stop Logging
 
@@ -155,6 +155,7 @@ Unit of Time : ms
 * A **clear button** on GHConsole can remove some useless log.
 * A **save button** and **load button** can save the log, and read the log you have saved. It's easy to check the problem in your apps.
 * At **release mode**, there will be no more any log output in your console.
+* absolutely **thread safe**.
 
 ## Configuration
 
