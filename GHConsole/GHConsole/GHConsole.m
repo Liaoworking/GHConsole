@@ -75,7 +75,7 @@ typedef void (^readTextBlock)(void);
 }
 
 - (void)configClearBtn{
-    _clearBtn = [[UIButton alloc]initWithFrame:CGRectMake(self.view.bounds.size.width - 80, KIsiPhoneX?40:20, 60, 30)];
+    _clearBtn = [[UIButton alloc]initWithFrame:CGRectMake([UIScreen mainScreen].bounds.size.width - 80, KIsiPhoneX?40:20, 60, 30)];
     [_clearBtn addTarget:self action:@selector(clearText) forControlEvents:UIControlEventTouchUpInside];
     [_clearBtn setTitle:@"clear" forState:UIControlStateNormal];
     [_clearBtn setTitleColor:[UIColor colorWithRed:0/255.0 green:212/255.0 blue:59/255.0 alpha:1] forState:UIControlStateNormal];
