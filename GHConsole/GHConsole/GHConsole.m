@@ -538,6 +538,7 @@ typedef void (^readTextBlock)(void);
     if (_isShowConsole && _isFullScreen) {//如果显示的话手机上的控制台开始显示。
         dispatch_async(dispatch_get_main_queue(), ^{
             self.consoleWindow.consoleRootViewController.dataSource = self.logStingArray;
+            [self scrollToBottom];
         });
     }
 }
@@ -646,6 +647,7 @@ tap
             if(!finished){
                 [self.consoleWindow maxmize];
             }
+            [self scrollToBottom];
             //            self.consoleWindow.consoleRootViewController->_textView.selectable = YES;
 //            [self.consoleWindow.rootViewController.view removeGestureRecognizer:self.panOutGesture];
         }];
@@ -665,6 +667,12 @@ tap
 //        [self.consoleWindow.rootViewController.view removeGestureRecognizer:self.panOutGesture];
 //        [self.consoleWindow.rootViewController.view addGestureRecognizer:self.panOutGesture];
     }];
+}
+
+- (void)scrollToBottom {
+    if(self.logStingArray.count > 0){
+        [self.consoleWindow.consoleRootViewController->_tableView scrollToRowAtIndexPath:[NSIndexPath indexPathForRow:self.logStingArray.count - 1 inSection:0] atScrollPosition:UITableViewScrollPositionBottom animated:NO];
+    }
 }
 
 
