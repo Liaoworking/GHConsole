@@ -56,7 +56,6 @@ typedef void (^readTextBlock)(void);
 @interface GHConsoleRootViewController : UIViewController<UITableViewDelegate,UITableViewDataSource>
 {
     @public
-//    UITextView *_textView;
     UITableView *_tableView;
     UIButton *_clearBtn;
     UIButton *_saveBtn;
@@ -64,7 +63,6 @@ typedef void (^readTextBlock)(void);
     UIButton *_minimize;
     UIImageView *_imgV;
 }
-//@property (nonatomic,copy) NSString *text;
 @property (nonatomic) BOOL scrollEnable;
 @property (nonatomic, copy) clearTextBlock clearLogText;
 @property (nonatomic, copy) readTextBlock readLog;
@@ -87,17 +85,8 @@ typedef void (^readTextBlock)(void);
 
 - (void)configTextField{
     self.view.clipsToBounds = YES;
-//    _textView = [[UITextView alloc] initWithFrame:CGRectMake(0, (KIsiPhoneX?40:20) + 35, self.view.bounds.size.width, self.view.bounds.size.height - (KIsiPhoneX?40:20) - 35)];
-//    _textView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
-//    _textView.backgroundColor = [UIColor blackColor];
-//    _textView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-//    _textView.font = [UIFont boldSystemFontOfSize:13];
-//    _textView.textColor = [UIColor whiteColor];
-//    _textView.editable = _textView.scrollEnabled = NO;
-//    _textView.selectable = NO;
-//    _textView.alwaysBounceVertical = YES;
     self.automaticallyAdjustsScrollViewInsets = NO;
-//    _tableView = [[UITableView alloc] initWithFrame:CGRectMake(0, (KIsiPhoneX?24:0) + 44, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height - (KIsiPhoneX?24:0) - 44) style:UITableViewStylePlain];
+
     _tableView = [[UITableView alloc] initWithFrame:CGRectZero style:UITableViewStylePlain];
     _tableView.tableFooterView = [UIView new];
     _tableView.separatorColor = [UIColor whiteColor];
@@ -106,16 +95,6 @@ typedef void (^readTextBlock)(void);
     _tableView.dataSource = self;
     _tableView.keyboardDismissMode = UIScrollViewKeyboardDismissModeOnDrag;
     _tableView.backgroundColor = [UIColor blackColor];
-//    _tableView.autoresizingMask = UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight;
-//#ifdef __IPHONE_11_0
-//    if([_tableView respondsToSelector:@selector(setContentInsetAdjustmentBehavior:)]){
-//#pragma clang diagnostic push
-//#pragma clang diagnostic ignored "-Wunguarded-availability"
-//        _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
-//#pragma clang diagnostic pop
-//
-//    }
-//#endif
     if (@available(iOS 11.0, *)) {
         _tableView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
     } else {
@@ -125,8 +104,6 @@ typedef void (^readTextBlock)(void);
     _tableView.translatesAutoresizingMaskIntoConstraints = NO;
     [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|-0-[_tableView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_tableView)]];
     [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-(h)-[_tableView]-0-|" options:0 metrics:@{@"h":@((KIsiPhoneX?44:0) + 44)} views:NSDictionaryOfVariableBindings(_tableView)]];
-//    _textView.text = self.text;
-//    [_textView scrollRectToVisible:CGRectMake(0, _textView.contentSize.height-15, _textView.contentSize.width, 10) animated:YES];
     [_tableView reloadData];
 }
 
@@ -158,7 +135,6 @@ typedef void (^readTextBlock)(void);
     [_readLogBtn setTitleColor:[UIColor colorWithRed:247/255.0 green:59/255.0 blue:59/255.0 alpha:1] forState:UIControlStateNormal];
     _readLogBtn.layer.borderWidth = 2;
     _readLogBtn.layer.borderColor = [[UIColor colorWithRed:247/255.0 green:59/255.0 blue:59/255.0 alpha:1] CGColor];
-//    _readLogBtn.hidden = [[NSUserDefaults standardUserDefaults]objectForKey:@"textSaveKey"]?false:true;
     [self.view addSubview:_readLogBtn];
 }
 
@@ -207,9 +183,6 @@ typedef void (^readTextBlock)(void);
     }else{
         NSData *data = [NSJSONSerialization dataWithJSONObject:self.dataSource options:NSJSONWritingPrettyPrinted error:nil];
         [[NSUserDefaults standardUserDefaults] setObject:data forKey:@"textSaveKey"];
-//        if (_readLogBtn.isHidden) {
-//            _readLogBtn.hidden = false;
-//        }
     }
 }
 
@@ -218,18 +191,6 @@ typedef void (^readTextBlock)(void);
         self.readLog();
     }
 }
-
-//- (void)setText:(NSString *)text {
-//    _text = [text copy];
-//    if(_textView){
-//        _textView.text = text;
-//        [_textView scrollRectToVisible:CGRectMake(0, _textView.contentSize.height-15, _textView.contentSize.width, 10) animated:YES];
-//    }
-//    if(_text.length > 0){
-//        [self.dataSource addObject:_text];
-//        [_tableView reloadData];
-//    }
-//}
 
 - (void)setScrollEnable:(BOOL)scrollEnable {
     _tableView.scrollEnabled = scrollEnable;
@@ -250,24 +211,6 @@ typedef void (^readTextBlock)(void);
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:Cell];
         cell.contentView.backgroundColor = [UIColor blackColor];
         cell.selectionStyle = UITableViewCellSelectionStyleNone;
-//        UILabel *label = [[UILabel alloc] init];
-//        label.tag = 100;
-//        label.textColor = [UIColor whiteColor];
-//        label.numberOfLines = 0;
-//        label.font = [UIFont systemFontOfSize:13];
-//        [cell.contentView addSubview:label];
-//        label.translatesAutoresizingMaskIntoConstraints = NO;
-//        NSArray *constraints1 = [NSLayoutConstraint constraintsWithVisualFormat:@"H:|-8-[label]-8-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(label)];
-//        [NSLayoutConstraint activateConstraints:constraints1];
-//        NSArray *constraints2 = [NSLayoutConstraint constraintsWithVisualFormat:@"V:|-8-[label]-8-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(label)];
-//        [NSLayoutConstraint activateConstraints:constraints2];
-//        [label mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.left.mas_equalTo(8);
-//            make.top.mas_equalTo(8);
-//            make.right.mas_equalTo(-8);
-//            make.bottom.mas_equalTo(-8);
-//        }];
-//        label.preferredMaxLayoutWidth = [UIScreen mainScreen].bounds.size.width - 8*2;
         UITextView *textView = [[UITextView alloc] init];
         textView.scrollEnabled = NO;
         textView.textContainer.lineFragmentPadding = 0;
@@ -283,15 +226,12 @@ typedef void (^readTextBlock)(void);
         [NSLayoutConstraint activateConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|-0-[textView]-0-|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(textView)]];
     }
     NSString *str = self.dataSource[indexPath.row];
-//    UILabel *label = [cell.contentView viewWithTag:100];
-//    label.text = str;
     UITextView *textView = [cell.contentView viewWithTag:100];
     textView.text = str;
     return cell;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-//    return UITableViewAutomaticDimension;
     NSString *str = self.dataSource[indexPath.row];
     CGRect rect = [str boundingRectWithSize:CGSizeMake([UIScreen mainScreen].bounds.size.width - 10, MAXFLOAT) options:NSStringDrawingUsesLineFragmentOrigin attributes:@{NSFontAttributeName:[UIFont systemFontOfSize:13]} context:nil];
     return ceil(rect.size.height);
@@ -406,8 +346,6 @@ typedef void (^readTextBlock)(void);
 
 @property (nonatomic, strong)NSString *string;
 @property (nonatomic, assign)BOOL isShowConsole;
-//a global variable to prove performance
-//@property (nonatomic, copy)NSMutableString *logSting;
 @property (nonatomic, strong) NSMutableArray *logStingArray;
 @property (nonatomic, copy)NSString *funcString;
 
@@ -455,11 +393,8 @@ typedef void (^readTextBlock)(void);
             __strong __typeof(weakSelf)strongSelf = weakSelf;
             [strongSelf readSavedText];
         };
-        //right direction swipe and double tap to make the console be hidden
-//        UISwipeGestureRecognizer *swipeGest = [[UISwipeGestureRecognizer alloc]initWithTarget:self action:@selector(swipeLogView:)];
         UITapGestureRecognizer *tappGest = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(tapImageView:)];
         
-//        [_consoleWindow.rootViewController.view addGestureRecognizer:swipeGest];
         [_consoleWindow.rootViewController.view addGestureRecognizer:self.panOutGesture];
         [_consoleWindow.consoleRootViewController->_imgV addGestureRecognizer:tappGest];
         _consoleWindow.consoleRootViewController.minimizeActionBlock = ^{
@@ -484,7 +419,6 @@ typedef void (^readTextBlock)(void);
     _isFullScreen = NO;
     _isShowConsole = YES;
     self.consoleWindow.hidden = NO;
-//    _logSting = [NSMutableString new];
     _formatter = [[NSDateFormatter alloc]init];
     _formatter.dateFormat = @"yyyy-MM-dd HH:mm:ss.SSS";
     _lock = [NSLock new];
@@ -532,11 +466,11 @@ typedef void (^readTextBlock)(void);
     }
     //printing at system concole
     printf("%s", resultCString);
-//    [_logSting appendString:msg];
     if(msg.length > 0 && [msg stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceCharacterSet]].length > 0){
         [self.logStingArray addObject:msg];
     }
-    if (_isShowConsole && _isFullScreen) {//如果显示的话手机上的控制台开始显示。
+    if (_isShowConsole && _isFullScreen) {
+        //如果显示的话手机上的控制台开始显示。
         dispatch_async(dispatch_get_main_queue(), ^{
             self.consoleWindow.consoleRootViewController.dataSource = self.logStingArray;
             [self scrollToBottom];
@@ -545,7 +479,6 @@ typedef void (^readTextBlock)(void);
 }
 
 - (void)clearAllText{
-//    _logSting = [NSMutableString stringWithString:@""];
     [self.logStingArray removeAllObjects];
     self.consoleWindow.consoleRootViewController.dataSource = self.logStingArray;
 }
@@ -572,22 +505,6 @@ typedef void (^readTextBlock)(void);
 }
 
 #pragma mark- gesture function
-/**
- right direction to hidden
- */
-//- (void)swipeLogView:(UISwipeGestureRecognizer *)swipeGesture{
-//
-//    if (_isFullScreen) {//如果是显示情况并且往右边滑动就隐藏
-//        if (swipeGesture.direction == UISwipeGestureRecognizerDirectionRight) {
-//            [UIView animateWithDuration:0.5 animations:^{
-//                [self.consoleWindow minimize];
-//            } completion:^(BOOL finished) {
-//                self->_isFullScreen = NO;
-//                [self.consoleWindow.rootViewController.view addGestureRecognizer:self.panOutGesture];
-//            }];
-//        }
-//    }
-//}
 - (void)panGesture:(UIPanGestureRecognizer *)gesture {
     if (_isFullScreen == YES) {// do nothing when it fullScreen.
         return;
@@ -595,18 +512,6 @@ typedef void (^readTextBlock)(void);
     if(gesture.state == UIGestureRecognizerStateChanged){
         CGPoint translation = [gesture translationInView:gesture.view];
         CGRect rect = CGRectOffset(self.consoleWindow.frame, translation.x, translation.y);
-//        if(rect.origin.x <0) {
-//            rect.origin.x = 0;
-//        }
-//        if(rect.origin.x>[UIScreen mainScreen].bounds.size.width-rect.size.width){
-//            rect.origin.x = [UIScreen mainScreen].bounds.size.width-rect.size.width;
-//        }
-//        if(rect.origin.y<(KIsiPhoneX?44:20)){
-//            rect.origin.y = (KIsiPhoneX?44:20);
-//        }
-//        if(rect.origin.y>[UIScreen mainScreen].bounds.size.height-(KIsiPhoneX?34:0)){
-//            rect.origin.y = [UIScreen mainScreen].bounds.size.height-(KIsiPhoneX?34:0);
-//        }
         self.consoleWindow.frame = rect;
         [gesture setTranslation:CGPointZero inView:gesture.view];
     }else if (gesture.state == UIGestureRecognizerStateEnded||gesture.state == UIGestureRecognizerStateCancelled){
@@ -639,7 +544,8 @@ tap
 
 //全屏
 - (void)maximumAnimation {
-    if (!_isFullScreen) {//变成全屏
+    if (!_isFullScreen) {
+        // becoma full screen
         self.consoleWindow.consoleRootViewController.dataSource = self.logStingArray;
         [UIView animateWithDuration:0.25 animations:^{
             [self.consoleWindow maxmize];
@@ -649,8 +555,6 @@ tap
                 [self.consoleWindow maxmize];
             }
             [self scrollToBottom];
-            //            self.consoleWindow.consoleRootViewController->_textView.selectable = YES;
-//            [self.consoleWindow.rootViewController.view removeGestureRecognizer:self.panOutGesture];
         }];
     }
 }
@@ -664,9 +568,6 @@ tap
         if(!finished){
             [self.consoleWindow minimize];
         }
-//        self.consoleWindow.consoleRootViewController->_textView.selectable = NO;
-//        [self.consoleWindow.rootViewController.view removeGestureRecognizer:self.panOutGesture];
-//        [self.consoleWindow.rootViewController.view addGestureRecognizer:self.panOutGesture];
     }];
 }
 
