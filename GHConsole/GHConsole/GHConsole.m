@@ -8,7 +8,6 @@
 //
 
 #import "GHConsole.h"
-//#import <Masonry.h>
 #define k_WIDTH [UIScreen mainScreen].bounds.size.width
 #import <unistd.h>
 #import <sys/uio.h>
