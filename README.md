@@ -11,7 +11,6 @@ An easy  and wireless way to get what you had logged and wanted to see in your A
 
 ## [GHConsole/Swift](https://github.com/Liaoworking/GHConsole-swift)
 
-[![Pod Version](https://img.shields.io/badge/Pod-1.4.0-6193DF.svg)](https://cocoapods.org/)
 ![Swift Version](https://img.shields.io/badge/xCode-9.1+-blue.svg)
 ![Swift Version](https://img.shields.io/badge/iOS-7.0+-blue.svg) 
 ![Plaform](https://img.shields.io/badge/Platform-iOS-lightgrey.svg)
@@ -21,19 +20,7 @@ An easy  and wireless way to get what you had logged and wanted to see in your A
 
 
 ## Installation
-Simply add GHConsole folder with files to your project, or use CocoaPods.
-
-#### CocoaPods
-You can use [CocoaPods](http://cocoapods.org/) to install `GHConsole` by adding it to your `Podfile`:
-
-```ruby
-platform :ios, '7.0'
-use_frameworks!
-#you need to update your CocoaPods version if you can't find this pod.
-target 'your_project_name' do
-	pod 'GHConsole'
-end
-```
+Simply add GHConsole folder with files to your project.
 
 ## Usage example
 
